@@ -86,7 +86,8 @@ public class MainGame : Game
             CheckboxTexture = new NinePatch(new TextureRegion(testTexture, 24, 8, 16, 16), 4),
             CheckboxCheckmark = new TextureRegion(testTexture, 24, 0, 8, 8),
             RadioTexture = new NinePatch(new TextureRegion(testTexture, 16, 0, 8, 8), 3),
-            RadioCheckmark = new TextureRegion(testTexture, 32, 0, 8, 8)
+            RadioCheckmark = new TextureRegion(testTexture, 32, 0, 8, 8),
+            TextColor = Color.Black,
         };
         UiSystem.Style = style;
     }

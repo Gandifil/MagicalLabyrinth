@@ -1,9 +1,14 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MagicalLabyrinth.Abilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using MLEM.Misc;
 using MLEM.Ui;
 using MLEM.Ui.Elements;
+using MLEM.Ui.Style;
 using MonoGame.Extended.Input.InputListeners;
 using MonoGame.Extended.Screens;
+using MonoGame.Extended.Content;
+using MonoGame.Extended.Serialization;
 
 namespace MagicalLabyrinth.Screens;
 
@@ -19,7 +24,19 @@ public class AbilitiesScreen: BackScreenBase
 
         MainGame.Instance.KeyboardListener.KeyPressed += KeyboardListenerOnKeyPressed;
         
-        var panel = new Panel(Anchor.Center, size: new Vector2(100, 100), positionOffset: Vector2.Zero);
+        var panel = new Panel(Anchor.Center, size: new Vector2(.5f, .5f), positionOffset: Vector2.Zero)
+        {
+            Padding = new StyleProp<Padding>(new Padding(-10))
+        };
+        panel.AddChild(new Paragraph(Anchor.TopCenter, 1, 
+            "Очки способностей: " + MainGame.Screen.Player.SkillPoints, true));
+        
+        panel.AddChild(new VerticalSpace(10));
+        
+        var abilities = MainGame.Instance.Content.Load<AbilityData[]>("abilities.json", new JsonContentLoader());
+        foreach (var abilityData in abilities)
+            panel.AddChild(new AbilityIcon(Anchor.AutoInline, abilityData));
+        panel.AddChild(new Paragraph(Anchor.BottomCenter, 1, "Esc/B - возврат к игре", true));
         MainGame.Instance.UiSystem.Add("ExampleUi", panel);
     }
 

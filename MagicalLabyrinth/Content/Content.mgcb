@@ -71,3 +71,176 @@
 /processor:FontDescriptionProcessor
 /build:fonts/Text.spritefont
 
+#begin abilities.json
+/copy:abilities.json
+
+#begin abilities/icon01.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon01.png
+
+#begin abilities/icon02.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon02.png
+
+#begin abilities/icon03.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon03.png
+
+#begin abilities/icon04.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon04.png
+
+#begin abilities/icon05.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon05.png
+
+#begin abilities/icon06.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon06.png
+
+#begin abilities/icon07.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon07.png
+
+#begin abilities/icon08.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon08.png
+
+#begin abilities/icon09.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon09.png
+
+#begin abilities/icon10.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon10.png
+
+#begin abilities/icon11.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon11.png
+
+#begin abilities/icon12.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon12.png
+
+#begin abilities/icon13.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon13.png
+
+#begin abilities/icon14.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon14.png
+
+#begin abilities/icon15.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon15.png
+
+#begin abilities/icon16.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon16.png
+
+#begin abilities/icon17.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon17.png
+
+#begin abilities/icon18.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon18.png
+
+#begin abilities/icon19.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon19.png
+
+#begin abilities/icon20.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon20.png
+
+#begin abilities/icon21.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon21.png
+
+#begin abilities/icon22.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon22.png
+
+#begin abilities/icon23.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon23.png
+
+#begin abilities/icon24.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon24.png
+
+#begin abilities/icon25.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon25.png
+
+#begin abilities/icon26.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon26.png
+
+#begin abilities/icon27.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon27.png
+
+#begin abilities/icon28.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon28.png
+
+#begin abilities/icon29.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon29.png
+
+#begin abilities/icon30.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon30.png
+
+#begin abilities/icon31.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon31.png
+
+#begin abilities/icon32.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon32.png
+
+#begin abilities/icon33.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon33.png
+
+#begin abilities/icon34.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:abilities/icon34.png
+
