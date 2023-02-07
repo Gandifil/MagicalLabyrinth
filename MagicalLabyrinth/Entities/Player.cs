@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGame.Extended;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.Input.InputListeners;
@@ -19,32 +20,30 @@ public class Player: Creature
     
     public override void Update(GameTime gameTime)
     {
-        var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
-        var walkSpeed = dt * 128;
         var keyboardState = Keyboard.GetState();
 
         var animation = "idle";
+        _isMoving = 0;
         if ((keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))  && !_isStriking)
         {
-            _sprite.Effect = SpriteEffects.FlipHorizontally;
-            _position.X -= walkSpeed;
+            SetLeftDirection();
             animation = "walk";
+            _isMoving = 1;
         }
         
         if ((keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))  && !_isStriking)
         {
-            _sprite.Effect = SpriteEffects.None;
-            _position.X += walkSpeed;
-            
+            SetRightDirection();
             animation = "walk";
+            _isMoving = 1;
         }
         
         if (_ySpeed == 0f && !_isStriking) 
             _sprite.Play(animation);
-        _sprite.Update(dt);
 
         if (_ySpeed != 0f)
         {
+            var dt = gameTime.GetElapsedSeconds();
             _position.Y += dt * _ySpeed;
             _ySpeed += dt * 200.8f;
             if (_position.Y > XLINE)
@@ -53,6 +52,8 @@ public class Player: Creature
                 _ySpeed = 0f;
             }
         }
+        
+        base.Update(gameTime);
     }
 
     private float _ySpeed = 0f;

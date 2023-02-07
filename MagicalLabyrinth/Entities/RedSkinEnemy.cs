@@ -17,23 +17,20 @@ public class RedSkinEnemy:Creature
 
     public override void Update(GameTime gameTime)
     {        
-        var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
-        var walkSpeed = dt * 50;
-
         var animation = "idle";
+        _isMoving = 0;
         if (NeedToLeft()  && !_isStriking)
         {
-            _sprite.Effect = SpriteEffects.FlipHorizontally;
-            _position.X -= walkSpeed;
+            SetLeftDirection();
             animation = "walk";
+            _isMoving = 1;
         }
         
         if (NeedToRight() && !_isStriking)
         {
-            _sprite.Effect = SpriteEffects.None;
-            _position.X += walkSpeed;
-            
+            SetRightDirection();
             animation = "walk";
+            _isMoving = 1;
         }
 
         if (NeedToStrike() && !_isStriking)
@@ -41,7 +38,9 @@ public class RedSkinEnemy:Creature
         
         if (!_isStriking) 
             _sprite.Play(animation);
-        _sprite.Update(dt);
+        
+        
+        base.Update(gameTime);
     }
 
     private void Strike(string name = "strike")

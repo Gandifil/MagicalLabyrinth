@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Content;
@@ -23,7 +24,27 @@ public abstract class Creature: IEntity
         _sprite = new AnimatedSprite(spriteSheet, "idle");
     }
 
-    public abstract void Update(GameTime gameTime);
+    protected int _direction = 1;
+    protected int _isMoving = 0;
+
+    protected void SetLeftDirection()
+    {
+        _sprite.Effect = SpriteEffects.FlipHorizontally;
+        _direction = -1;
+    }
+
+    protected void SetRightDirection()
+    {
+        _sprite.Effect = SpriteEffects.None;
+        _direction = 1;
+    }
+    
+    public virtual void Update(GameTime gameTime)
+    {
+        var dt = gameTime.GetElapsedSeconds();
+        _position.X += _isMoving * _direction * dt * _creatureData.Speed;
+        _sprite.Update(dt);
+    }
     
     protected const float XLINE = 178;
 
