@@ -1,0 +1,53 @@
+
+#----------------------------- Global Properties ----------------------------#
+
+/outputDir:bin/$(Platform)
+/intermediateDir:obj/$(Platform)
+/platform:DesktopGL
+/config:
+/profile:Reach
+/compress:False
+
+#-------------------------------- References --------------------------------#
+
+/reference:C:\Users\user\.nuget\packages\monogame.extended.content.pipeline\3.9.0-alpha0084\tools\MonoGame.Extended.Content.Pipeline.dll
+
+#---------------------------------- Content ---------------------------------#
+
+#begin creatures/adventurer-Sheet.json
+/copy:creatures/adventurer-Sheet.json
+
+#begin creatures/adventurer-Sheet.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:creatures/adventurer-Sheet.png
+
+#begin creatures/adventurer-Sheet.sf
+/copy:creatures/adventurer-Sheet.sf
+
+#begin creatures/adventurer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:creatures/adventurer.png
+
+#begin creatures/adventurer.sf
+/copy:creatures/adventurer.sf
+
+#begin creatures/player.json
+/copy:creatures/player.json
+
+#begin maps/platformertiles.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:maps/platformertiles.png
+
+#begin maps/MoonTiles.tsx
+/importer:TiledMapTilesetImporter
+/processor:TiledMapTilesetProcessor
+/build:maps/MoonTiles.tsx
+
+#begin maps/StartLocation.tmx
+/importer:TiledMapImporter
+/processor:TiledMapProcessor
+/build:maps/StartLocation.tmx
+

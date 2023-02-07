@@ -1,0 +1,24 @@
+﻿{
+  "exclude": [
+    "obj/",
+    "bin/",
+    ".tiled-*"
+  ],
+  "logSkipped": true,
+  "overrides": {
+    "*.tsx": {
+      "importer": "TiledMapTilesetImporter",
+      "processor": "TiledMapTilesetProcessor"
+    },
+    "*.tmx": {
+      "importer": "TiledMapImporter",
+      "processor": "TiledMapProcessor"
+    },
+    ".sf": {
+      "copy": true
+    },
+    ".json": {
+      "copy": true
+    }
+  }
+}
