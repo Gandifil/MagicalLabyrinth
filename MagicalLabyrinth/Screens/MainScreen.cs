@@ -8,6 +8,7 @@ using MonoGame.Extended;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Content;
+using MonoGame.Extended.Input.InputListeners;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Renderers;
@@ -46,6 +47,15 @@ public class MainScreen: GameScreen
             HighColor = Color.Cyan,
             
         };
+        
+        
+        MainGame.Instance.KeyboardListener.KeyPressed += KeyboardListenerOnKeyPressed;
+    }
+
+    private void KeyboardListenerOnKeyPressed(object sender, KeyboardEventArgs e)
+    {
+        if (e.Key == Keys.B)
+            MainGame.Instance.ScreenManager.LoadScreen(new AbilitiesScreen(this));
     }
 
     public override void Update(GameTime gameTime)
