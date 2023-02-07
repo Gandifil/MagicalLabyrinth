@@ -28,7 +28,7 @@ public class MainScreen: GameScreen
 
     public MainScreen(MainGame game) : base(game)
     {
-        Player = new Player();
+        Player = new Player(50);
         _entities.Add(Player);
         _entities.Add(new RedSkinEnemy(this, 250));
     }
@@ -102,5 +102,10 @@ public class MainScreen: GameScreen
                         creature.Hurt(value);
                         Player.AddExpirience();
                     }
+    }
+
+    public void Spawn(IEntity entity)
+    {
+        _entities.Add(entity);
     }
 }

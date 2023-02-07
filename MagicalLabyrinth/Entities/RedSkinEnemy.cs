@@ -9,10 +9,9 @@ public class RedSkinEnemy:Creature
 {
     private readonly MainScreen _screen;
     
-    public RedSkinEnemy(MainScreen screen, int x): base("adventurer-Sheet")
+    public RedSkinEnemy(MainScreen screen, int X): base("adventurer-Sheet", X)
     {
         _screen = screen;
-        _position.X = x;
     }
 
     public override void Update(GameTime gameTime)

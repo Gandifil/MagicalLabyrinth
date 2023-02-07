@@ -10,6 +10,7 @@ using MonoGame.Extended.Content;
 using MonoGame.Extended.Input.InputListeners;
 using MonoGame.Extended.Sprites;
 using AnimatedSprite = MagicalLabyrinth.Sprites.AnimatedSprite;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace MagicalLabyrinth.Entities;
 
@@ -45,7 +46,7 @@ public class Player: Creature
         SkillPoints++;
     }
 
-    public Player(): base("player")
+    public Player(float X): base("player", X)
     {
         MainGame.Instance.KeyboardListener.KeyPressed += OnKeyPressed;
     }
@@ -99,6 +100,14 @@ public class Player: Creature
             
             _ySpeed = -200f;
             _sprite.Play("jump");
+        }
+        
+        if (e.Key == Keys.Q)
+        {
+            MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 600f, 0f))
+            {
+                Position = Position,
+            });
         }
 
         if (e.Key == Keys.LeftShift)

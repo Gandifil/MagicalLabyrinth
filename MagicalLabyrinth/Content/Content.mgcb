@@ -244,3 +244,11 @@
 /processor:TextureProcessor
 /build:abilities/icon34.png
 
+#begin projectiles/knife.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:projectiles/knife.png
+
+#begin projectiles/knife.sf
+/copy:projectiles/knife.sf
+

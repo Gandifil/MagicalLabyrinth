@@ -9,24 +9,19 @@ using AnimatedSprite = MagicalLabyrinth.Sprites.AnimatedSprite;
 
 namespace MagicalLabyrinth.Entities;
 
-public abstract class Creature: IEntity
+public abstract class Creature: Entity
 {
     protected readonly CreatureData _creatureData;
-    protected AnimatedSprite _sprite;
 
-    protected Creature(string modelName)
+    protected Creature(string modelName, float X)
     {
         _creatureData = MainGame.Instance.Content
             .Load<CreatureData>("creatures/" + modelName + ".json", new JsonContentLoader());
-        
-        var spriteSheet =  MainGame.Instance.Content
-            .Load<SpriteSheet>("creatures/" + _creatureData.SpriteSheetName, new JsonContentLoader());
-        
-        _sprite = new AnimatedSprite(spriteSheet, "idle");
+        SetupAnimatedSprite("creatures/" + _creatureData.SpriteSheetName);
+        Position = new Vector2(X, XLINE);
     }
 
     private int _hp = 100;
-    public bool IsAlive => _hp > 0;
 
     private Tweener _tweener = new Tweener();
     public float TweenerColor { get; set; } = 0f;
@@ -34,6 +29,8 @@ public abstract class Creature: IEntity
     public void Hurt(int damage)
     {
         _hp -= damage;
+        if (_hp <= 0)
+            Die();
         _tweener
             .TweenTo(
                 target: this,
@@ -45,44 +42,22 @@ public abstract class Creature: IEntity
         .Easing(EasingFunctions.BounceOut);
     }
 
-    protected int _direction = 1;
     protected int _isMoving = 0;
-
-    protected void SetLeftDirection()
-    {
-        _sprite.Effect = SpriteEffects.FlipHorizontally;
-        _direction = -1;
-    }
-
-    protected void SetRightDirection()
-    {
-        _sprite.Effect = SpriteEffects.None;
-        _direction = 1;
-    }
     
-    public virtual void Update(GameTime gameTime)
+    public override void Update(GameTime gameTime)
     {
+        base.Update(gameTime);
+        
         var dt = gameTime.GetElapsedSeconds();
         _position.X += _isMoving * _direction * dt * _creatureData.Speed;
-        _sprite.Update(dt);
         _tweener.Update(dt);
-    }
-    
-    protected const float XLINE = 178;
-
-    protected Vector2 _position = new Vector2(50, XLINE);
-
-    public Vector2 Position
-    {
-        get => _position;
-        set => _position = value;
     }
 
     public int Level { get; set; } = 1;
     
-    public void Draw(SpriteBatch spriteBatch)
+    public override void Draw(SpriteBatch spriteBatch)
     {
         _sprite.Color = TweenerColor < .8f ? Color.White : Color.Red;
-        spriteBatch.Draw(_sprite, Position);
+        base.Draw(spriteBatch);
     }
 }

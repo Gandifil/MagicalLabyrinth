@@ -9,15 +9,15 @@
     ],
     "fileStates": {
         "MoonTiles.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 2,
             "scaleInEditor": 1
         },
         "StartLocation.tmx": {
-            "scale": 1.5,
-            "selectedLayer": 0,
+            "scale": 1,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 184.66666666666666,
-                "y": 184.33333333333334
+                "x": 560,
+                "y": 289.5
             }
         }
     },
