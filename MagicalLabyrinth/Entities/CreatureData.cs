@@ -6,5 +6,7 @@ public class CreatureData
 
     public float Speed { get; set; }
 
+    public float BaseAttack { get; set; }
+
     public float Jump { get; set; }
 }

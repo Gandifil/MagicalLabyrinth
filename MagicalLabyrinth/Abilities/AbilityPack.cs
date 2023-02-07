@@ -7,9 +7,15 @@ public class AbilityPack: IAbilityPack
 {
     private readonly List<AbilityData> _abilities = new();
 
+    public float BaseAttackPower { get; private set; }
+
+    public float BaseAttackSpeed { get; private set; }
+
     public void AddAbility(AbilityData abilityData)
     {
         _abilities.Add(abilityData);
+        BaseAttackPower += abilityData.BaseAttackPower;
+        BaseAttackSpeed += abilityData.BaseAttackSpeed;
     }
     
     public bool Contain(string name)

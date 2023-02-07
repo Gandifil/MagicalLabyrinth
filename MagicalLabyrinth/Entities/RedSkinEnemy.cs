@@ -45,7 +45,7 @@ public class RedSkinEnemy:Creature
 
     private void Strike(string name = "strike")
     {
-        _sprite.Play(name + new Random().Next(1,4).ToString(), () =>
+        _sprite.Play(name + new Random().Next(1,4), () =>
         {
             _isStriking = false;
         });

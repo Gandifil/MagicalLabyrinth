@@ -1,5 +1,6 @@
 ﻿{
   "spriteSheetName": "adventurer.sf",
   "speed": 128,
-  "jump": 0
+  "jump": 0,
+  "baseAttack": 10
 }

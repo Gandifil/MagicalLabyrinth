@@ -119,16 +119,17 @@ public class Player: Creature
         if (e.Key == Keys.F)
         {
             _isStriking = true;
-            _strike = new Strike(_sprite, () => MainGame.Screen.ProcessDamageZone(true, 10, GetDamageZone()));
+            _strike = new Strike(_sprite, () => MainGame.Screen.ProcessDamageZone(true, 
+                (int)((1 + AbilityPack.BaseAttackPower)*_creatureData.BaseAttack), GetDamageZone()));
             if (_sprite.CurrentAnimationName.StartsWith("strike")
                 && _sprite.Progress is > 0.5f and < 0.95f)
             {
                 _sprite.Play(_sprite.CurrentAnimationName == "strike2" ? "strike3" : "strike2",
-                    () => _isStriking = false);
+                    () => _isStriking = false, 1/(1 + AbilityPack.BaseAttackPower));
             }
             else
                 //_sprite.Play("strike1");
-            _sprite.Play("strike1", () => _isStriking = false);
+            _sprite.Play("strike1", () => _isStriking = false, 1/(1 + AbilityPack.BaseAttackPower));
         }
     }
 

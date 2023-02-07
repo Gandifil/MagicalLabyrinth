@@ -21,13 +21,13 @@ public class AnimatedSprite : Sprite, IAnimationController
         Play(playAnimation);
     }
 
-    public SpriteSheetAnimation Play(string name, Action onCompleted = null)
+    public SpriteSheetAnimation Play(string name, Action onCompleted = null, float speed = 1f)
     {
         if (_currentAnimation == null || _currentAnimation.IsComplete || _currentAnimation.Name != name)
         {
             SpriteSheetAnimationCycle cycle = _spriteSheet.Cycles[name];
             TextureRegion2D[] array = cycle.Frames.Select(f => _spriteSheet.TextureAtlas[f.Index]).ToArray();
-            _currentAnimation = new SpriteSheetAnimation(name, array, cycle.FrameDuration, cycle.IsLooping, 
+            _currentAnimation = new SpriteSheetAnimation(name, array, speed * cycle.FrameDuration, cycle.IsLooping, 
                 cycle.IsReversed, cycle.IsPingPong);
             if (_currentAnimation != null)
                 _currentAnimation.OnCompleted = onCompleted;

@@ -7,4 +7,8 @@ public class AbilityData
     public string Description { get; set; }
 
     public string SpriteSheet { get; set; }
+
+    public float BaseAttackPower { get; set; }
+
+    public float BaseAttackSpeed { get; set; }
 }
