@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
@@ -10,6 +11,8 @@ public class Projectile: Entity
 {
     private readonly IEntity _owner;
     private readonly Vector2 _shift;
+
+    public float MaxRadius { get; set; } = 500;
     
     public Projectile(IEntity owner, Vector2 shift)
     {
@@ -28,5 +31,8 @@ public class Projectile: Entity
         base.Update(gameTime);
 
         Position += gameTime.GetElapsedSeconds() * _shift;
+
+        if ((_owner.Position - Position).Length() > MaxRadius)
+            Die();
     }
 }
