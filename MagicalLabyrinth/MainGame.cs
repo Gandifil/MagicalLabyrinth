@@ -17,9 +17,8 @@ namespace MagicalLabyrinth;
 public class MainGame : Game
 {
     private GraphicsDeviceManager _graphics;
-    private SpriteBatch _spriteBatch;
 
-    public SpriteBatch SpriteBatch => _spriteBatch;
+    public SpriteBatch SpriteBatch { get; private set; }
     public ScreenManager ScreenManager { get; private set; }
     
     private readonly TouchListener _touchListener;
@@ -48,7 +47,7 @@ public class MainGame : Game
         _mouseListener = new MouseListener();
         _touchListener = new TouchListener();
         
-        UiSystem = new UiSystem(this, style);
+        UiSystem = new UiSystem(this, new UiStyle());
 
         Instance = this;
         Components.Add(new InputListenerComponent(this, KeyboardListener, _gamePadListener, _mouseListener, _touchListener));
@@ -56,6 +55,8 @@ public class MainGame : Game
 
     protected override void Initialize()
     {
+        SpriteBatch = new SpriteBatch(GraphicsDevice);
+        
         var viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 400, 240);
         Camera = new OrthographicCamera(viewportAdapter);
 
@@ -64,16 +65,12 @@ public class MainGame : Game
         base.Initialize();
     }
 
-    private UntexturedStyle style;
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
-        
-        
         var testTexture = Content.Load<Texture2D>("Test");
         var testPatch = new NinePatch(new TextureRegion(testTexture, 40, 0, 40, 40), 16);
 
-        style = new UntexturedStyle(this.SpriteBatch) {
+        var style = new UntexturedStyle(this.SpriteBatch) {
             Font = new GenericSpriteFont(
                 Content.Load<SpriteFont>("fonts/gui"), 
                 Content.Load<SpriteFont>("fonts/Text"), 

@@ -28,28 +28,38 @@ public class MainScreen: GameScreen
 
     public MainScreen(MainGame game) : base(game)
     {
+        Player = new Player();
+        _entities.Add(Player);
+        _entities.Add(new RedSkinEnemy(this, 250));
+    }
+
+    public override void Initialize()
+    {
+        base.Initialize();
+        
+        _tiledMap = Content.Load<TiledMap>("maps/StartLocation");
+        _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
+
+        _exp = new(Game.SpriteBatch)
+        {
+            LowColor = Color.Cyan,
+            HighColor = Color.Cyan,
+        };
     }
 
     public override void LoadContent()
     {
         base.LoadContent();
         
-        _tiledMap = Content.Load<TiledMap>("maps/StartLocation");
-        _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
-
-        Player = new Player();
-        _entities.Add(Player);
-        _entities.Add(new RedSkinEnemy(this, 250));
-        
-        _exp = new(Game.SpriteBatch)
-        {
-            LowColor = Color.Cyan,
-            HighColor = Color.Cyan,
-            
-        };
-        
         
         MainGame.Instance.KeyboardListener.KeyPressed += KeyboardListenerOnKeyPressed;
+    }
+
+    public override void UnloadContent()
+    {
+        base.UnloadContent();
+        
+        MainGame.Instance.KeyboardListener.KeyPressed -= KeyboardListenerOnKeyPressed;
     }
 
     private void KeyboardListenerOnKeyPressed(object sender, KeyboardEventArgs e)
