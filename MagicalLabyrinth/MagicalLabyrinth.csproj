@@ -21,6 +21,7 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Contentless" Version="3.0.7" />
+        <PackageReference Include="MLEM.Ui" Version="6.1.0" />
         <PackageReference Include="MonoGame.Extended" Version="3.9.0-alpha0084" />
         <PackageReference Include="MonoGame.Extended.Animations" Version="3.7.0" />
         <PackageReference Include="MonoGame.Extended.Content.Pipeline" Version="3.9.0-alpha0084" />

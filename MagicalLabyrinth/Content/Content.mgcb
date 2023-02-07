@@ -51,3 +51,23 @@
 /processor:TiledMapProcessor
 /build:maps/StartLocation.tmx
 
+#begin Test.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:Test.png
+
+#begin fonts/GameLogsFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/build:fonts/GameLogsFont.spritefont
+
+#begin fonts/gui.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/build:fonts/gui.spritefont
+
+#begin fonts/Text.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/build:fonts/Text.spritefont
+

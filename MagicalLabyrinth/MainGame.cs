@@ -2,6 +2,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MLEM.Font;
+using MLEM.Textures;
+using MLEM.Ui;
+using MLEM.Ui.Style;
 using MonoGame.Extended;
 using MonoGame.Extended.Input.InputListeners;
 using MonoGame.Extended.Screens;
@@ -16,12 +20,12 @@ public class MainGame : Game
     private SpriteBatch _spriteBatch;
 
     public SpriteBatch SpriteBatch => _spriteBatch;
-    
-    private readonly ScreenManager _screenManager;
+    public ScreenManager ScreenManager { get; private set; }
     
     private readonly TouchListener _touchListener;
     private readonly GamePadListener _gamePadListener;
     public readonly KeyboardListener KeyboardListener;
+    public UiSystem UiSystem { get; private set; }
     private readonly MouseListener _mouseListener;
     
     public OrthographicCamera Camera { get; private set; }
@@ -36,13 +40,15 @@ public class MainGame : Game
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
         
-        _screenManager = new ScreenManager();
-        Components.Add(_screenManager);
+        ScreenManager = new ScreenManager();
+        Components.Add(ScreenManager);
         
         KeyboardListener = new KeyboardListener();
         _gamePadListener = new GamePadListener();
         _mouseListener = new MouseListener();
         _touchListener = new TouchListener();
+        
+        UiSystem = new UiSystem(this, style);
 
         Instance = this;
         Components.Add(new InputListenerComponent(this, KeyboardListener, _gamePadListener, _mouseListener, _touchListener));
@@ -54,13 +60,35 @@ public class MainGame : Game
         Camera = new OrthographicCamera(viewportAdapter);
 
         Screen = new MainScreen(this);
-        _screenManager.LoadScreen(Screen, new FadeTransition(GraphicsDevice, Color.Black));
+        ScreenManager.LoadScreen(Screen, new FadeTransition(GraphicsDevice, Color.Black));
         base.Initialize();
     }
 
+    private UntexturedStyle style;
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+        
+        
+        var testTexture = Content.Load<Texture2D>("Test");
+        var testPatch = new NinePatch(new TextureRegion(testTexture, 40, 0, 40, 40), 16);
+
+        style = new UntexturedStyle(this.SpriteBatch) {
+            Font = new GenericSpriteFont(
+                Content.Load<SpriteFont>("fonts/gui"), 
+                Content.Load<SpriteFont>("fonts/Text"), 
+                Content.Load<SpriteFont>("fonts/Text")),
+            PanelTexture = testPatch,
+            ButtonTexture = new NinePatch(new TextureRegion(testTexture, 24, 8, 16, 16), 4),
+            TextFieldTexture = new NinePatch(new TextureRegion(testTexture, 24, 8, 16, 16), 4),
+            ScrollBarBackground = new NinePatch(new TextureRegion(testTexture, 12, 0, 4, 8), 1, 1, 2, 2),
+            ScrollBarScrollerTexture = new NinePatch(new TextureRegion(testTexture, 8, 0, 4, 8), 1, 1, 2, 2),
+            CheckboxTexture = new NinePatch(new TextureRegion(testTexture, 24, 8, 16, 16), 4),
+            CheckboxCheckmark = new TextureRegion(testTexture, 24, 0, 8, 8),
+            RadioTexture = new NinePatch(new TextureRegion(testTexture, 16, 0, 8, 8), 3),
+            RadioCheckmark = new TextureRegion(testTexture, 32, 0, 8, 8)
+        };
+        UiSystem.Style = style;
     }
 
     protected override void Update(GameTime gameTime)
@@ -69,16 +97,17 @@ public class MainGame : Game
             Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
+        UiSystem.Update(gameTime);
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
-
         var transformMatrix = Camera.GetViewMatrix();
         SpriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: transformMatrix);
         base.Draw(gameTime);
         SpriteBatch.End();
+        
+        UiSystem.Draw(gameTime, SpriteBatch);
     }
 }
