@@ -88,7 +88,7 @@ public class Player: Creature
         if (e.Key == Keys.F)
         {
             _isStriking = true;
-            _strike = new Strike(_sprite, () => MainGame.Screen.ProcessDamageZone(true, 100, GetDamageZone()));
+            _strike = new Strike(_sprite, () => MainGame.Screen.ProcessDamageZone(true, 10, GetDamageZone()));
             if (_sprite.CurrentAnimationName.StartsWith("strike")
                 && _sprite.Progress is > 0.5f and < 0.95f)
             {
@@ -103,7 +103,7 @@ public class Player: Creature
 
     private RectangleF GetDamageZone()
     {
-        return new RectangleF(Position.X+_direction*_sprite.TextureRegion.Width/2, Position.Y, 
+        return new RectangleF(Position.X-(_direction == -1 ? _sprite.TextureRegion.Width : 0), Position.Y, 
             _sprite.TextureRegion.Width, _sprite.TextureRegion.Height);
     }
 }

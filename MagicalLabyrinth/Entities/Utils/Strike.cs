@@ -7,8 +7,8 @@ namespace MagicalLabyrinth.Entities.Utils;
 
 public class Strike: IUpdate
 {
-    protected readonly AnimatedSprite _sprite;
-    protected readonly Action _action;
+    private readonly AnimatedSprite _sprite;
+    private readonly Action _action;
 
     public bool IsCompleted { get; private set; }
 
