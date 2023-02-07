@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using MagicalLabyrinth.Entities.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -52,12 +53,13 @@ public class Player: Creature
                 _ySpeed = 0f;
             }
         }
-        
+        _strike?.Update(gameTime);
         base.Update(gameTime);
     }
 
     private float _ySpeed = 0f;
     private bool _isStriking = false;
+    private Strike _strike;
 
     private void OnKeyPressed(object sender, KeyboardEventArgs e)
     {
@@ -85,7 +87,8 @@ public class Player: Creature
         }
         if (e.Key == Keys.F)
         {
-            _isStriking = true;        
+            _isStriking = true;
+            _strike = new Strike(_sprite, () => MainGame.Screen.ProcessDamageZone(true, 100, GetDamageZone()));
             if (_sprite.CurrentAnimationName.StartsWith("strike")
                 && _sprite.Progress is > 0.5f and < 0.95f)
             {
@@ -96,5 +99,11 @@ public class Player: Creature
                 //_sprite.Play("strike1");
             _sprite.Play("strike1", () => _isStriking = false);
         }
+    }
+
+    private RectangleF GetDamageZone()
+    {
+        return new RectangleF(Position.X+_direction*_sprite.TextureRegion.Width/2, Position.Y, 
+            _sprite.TextureRegion.Width, _sprite.TextureRegion.Height);
     }
 }

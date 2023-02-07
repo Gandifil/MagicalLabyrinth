@@ -27,6 +27,7 @@ public class MainGame : Game
     public OrthographicCamera Camera { get; private set; }
 
     public static MainGame Instance;
+    public static MainScreen Screen;
 
     public MainGame()
     {
@@ -52,7 +53,8 @@ public class MainGame : Game
         var viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 400, 240);
         Camera = new OrthographicCamera(viewportAdapter);
 
-        _screenManager.LoadScreen(new MainScreen(this), new FadeTransition(GraphicsDevice, Color.Black));
+        Screen = new MainScreen(this);
+        _screenManager.LoadScreen(Screen, new FadeTransition(GraphicsDevice, Color.Black));
         base.Initialize();
     }
 

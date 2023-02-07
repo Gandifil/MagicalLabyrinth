@@ -7,4 +7,5 @@ namespace MagicalLabyrinth;
 public interface IEntity: IUpdate, IMovable
 {
     void Draw(SpriteBatch spriteBatch);
+    bool IsAlive { get; }
 }

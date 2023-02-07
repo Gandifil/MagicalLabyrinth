@@ -60,5 +60,16 @@ public class MainScreen: GameScreen
         _tiledMapRenderer.Draw(transformMatrix); // Game.Camera.GetViewMatrix()
         foreach (var entity in _entities)
             entity.Draw(Game.SpriteBatch);
+
+        _entities.RemoveAll(x => !x.IsAlive);
+    }
+
+    public void ProcessDamageZone(bool isFromPlayer, int value, RectangleF damageZone)
+    {
+        foreach (var entity in _entities)
+            if (entity is Creature creature)
+                if (isFromPlayer != entity is Player)
+                    if (damageZone.Contains(entity.Position))
+                        creature.Hurt(value);
     }
 }

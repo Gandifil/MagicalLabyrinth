@@ -24,6 +24,14 @@ public abstract class Creature: IEntity
         _sprite = new AnimatedSprite(spriteSheet, "idle");
     }
 
+    private int _hp = 100;
+    public bool IsAlive => _hp > 0;
+
+    public void Hurt(int damage)
+    {
+        _hp -= damage;
+    }
+
     protected int _direction = 1;
     protected int _isMoving = 0;
 
