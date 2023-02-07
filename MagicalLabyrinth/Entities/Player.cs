@@ -1,4 +1,5 @@
 ﻿using System.Numerics;
+using MagicalLabyrinth.Abilities;
 using MagicalLabyrinth.Entities.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,10 +21,21 @@ public class Player: Creature
 
     public int SkillPoints { get; private set; } = 1;
 
+    public AbilityPack AbilityPack { get; private set; } = new AbilityPack();
+
     public void AddExpirience()
     {
         Expirience++;
         while (Expirience > MaxExpirience) LevelUp();
+    }
+
+    public void BuyAbility(AbilityData abilityData)
+    {
+        if (SkillPoints > 0)
+        {
+            SkillPoints--;
+            AbilityPack.AddAbility(abilityData);
+        }
     }
 
     private void LevelUp()

@@ -1,9 +1,11 @@
 ﻿[
   {
+    "name": "baseAttackPower",
     "spriteSheet": "icon01",
     "Description": "Увеличивает силу ударов на 40%"
   },
   {
+    "name": "baseAttackSpeed",
     "spriteSheet": "icon02",
     "Description": "Увеличивает скорость ударов на 40%"
   }

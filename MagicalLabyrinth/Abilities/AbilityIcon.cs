@@ -12,11 +12,13 @@ namespace MagicalLabyrinth.Abilities;
 
 public class AbilityIcon: Image
 {
+    private readonly AbilityData _abilityData;
     private readonly Tooltip _tooltip;
     
     public AbilityIcon(Anchor anchor, AbilityData data) 
         : base(anchor, new Vector2(32, 32), getTexture(data), false)
     {
+        _abilityData = data;
         CanBeMoused = true;
         CanBePressed= true;
         
@@ -24,6 +26,12 @@ public class AbilityIcon: Image
         var _tooltip = new Tooltip(data.Description, this);
         _tooltip.MouseOffset = new Vector2(32, -64);
         _tooltip.ParagraphWidth = new StyleProp<float>(300);
+        CheckState();
+        OnPressed += _ =>
+        {
+            MainGame.Screen.Player.BuyAbility(data);
+            CheckState();
+        };
     }
 
     private static TextureRegion getTexture(AbilityData abilityData)
@@ -33,5 +41,12 @@ public class AbilityIcon: Image
         //var pos = new Point(abilityData.SpriteX, abilityData.SpriteY);
         return new TextureRegion2D(texture).ToMlem();
         
+    }
+
+    private void CheckState()
+    {
+        Color = MainGame.Screen.Player.AbilityPack.Contain(_abilityData.Name)
+            ? new StyleProp<Color>(Microsoft.Xna.Framework.Color.White)
+            : new StyleProp<Color>(Microsoft.Xna.Framework.Color.Gray);
     }
 }
