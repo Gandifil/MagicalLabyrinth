@@ -14,6 +14,25 @@ namespace MagicalLabyrinth.Entities;
 
 public class Player: Creature
 {
+    public int Expirience { get; private set; } = 0;
+
+    public int MaxExpirience { get; private set; } = 8;
+
+    public int SkillPoints { get; private set; } = 1;
+
+    public void AddExpirience()
+    {
+        Expirience++;
+        while (Expirience > MaxExpirience) LevelUp();
+    }
+
+    private void LevelUp()
+    {
+        Expirience -= MaxExpirience;
+        MaxExpirience *= 2;
+        SkillPoints++;
+    }
+
     public Player(): base("player")
     {
         MainGame.Instance.KeyboardListener.KeyPressed += OnKeyPressed;

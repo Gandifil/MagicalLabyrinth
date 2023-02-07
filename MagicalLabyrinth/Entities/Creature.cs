@@ -77,6 +77,8 @@ public abstract class Creature: IEntity
         get => _position;
         set => _position = value;
     }
+
+    public int Level { get; set; } = 1;
     
     public void Draw(SpriteBatch spriteBatch)
     {
