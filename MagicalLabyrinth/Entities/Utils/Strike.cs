@@ -1,6 +1,7 @@
 ﻿using System;
 using MagicalLabyrinth.Sprites;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using MonoGame.Extended;
 
 namespace MagicalLabyrinth.Entities.Utils;
@@ -15,6 +16,7 @@ public class Strike: IUpdate
     public bool IsNeedNext { get; private set; }
     
     public bool IsStriking { get; private set; }
+    private readonly SoundEffect _strikeSoundEffect = MainGame.Instance.Content.Load<SoundEffect>("sounds/sword sound");
 
     public Strike(Player player, AnimatedSprite sprite, Action<Creature> action)
     {
@@ -44,6 +46,7 @@ public class Strike: IUpdate
         name ??= _sprite.CurrentAnimationName == "strike2" ? "strike3" : "strike2";
         
         _sprite.Play(name, () => IsStriking = false, 1 - _player.AbilityPack.BaseAttackPower);
+        _strikeSoundEffect.Play();
     }
 
     public void TryStart()

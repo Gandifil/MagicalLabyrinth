@@ -1,6 +1,7 @@
 ﻿using System;
 using MagicalLabyrinth.Screens;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MagicalLabyrinth.Entities;
@@ -42,6 +43,7 @@ public class RedSkinEnemy:Creature
         base.Update(gameTime);
     }
 
+    private readonly SoundEffect _strikeSoundEffect = MainGame.Instance.Content.Load<SoundEffect>("sounds/melee sound");
     private void Strike(string name = "strike")
     {
         _sprite.Play(name + new Random().Next(1,4), () =>
@@ -49,6 +51,7 @@ public class RedSkinEnemy:Creature
             _isStriking = false;
         });
         _isStriking = true;
+        _strikeSoundEffect.Play(.2f, 1f, 1f);
     }
 
     private bool NeedToStrike()

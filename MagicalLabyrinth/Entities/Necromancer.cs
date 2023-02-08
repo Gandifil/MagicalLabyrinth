@@ -2,6 +2,7 @@
 using MagicalLabyrinth.Entities.Utils;
 using MagicalLabyrinth.Screens;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 
@@ -73,6 +74,7 @@ public class Necromancer: Creature
         base.Update(gameTime);
     }
 
+    private readonly SoundEffect _strikeSoundEffect = MainGame.Instance.Content.Load<SoundEffect>("sounds/Fire");
     private void Strike(string name = "strike1")
     {
         _sprite.Play(name, () =>
@@ -83,6 +85,7 @@ public class Necromancer: Creature
                 {
                     Position = Position,
                 });
+            _strikeSoundEffect.Play(1f, 1f, 1f);
             _isStriking = false;
         });
         _isStriking = true;

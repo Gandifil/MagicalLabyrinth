@@ -2,8 +2,10 @@
 using MagicalLabyrinth.Abilities;
 using MagicalLabyrinth.Entities.Utils;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MonoGame.Extended;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Content;
@@ -24,10 +26,11 @@ public class Player: Creature
 
     public AbilityPack AbilityPack { get; private set; } = new AbilityPack();
 
+
     public void AddExpirience(int value)
     {
         Expirience += value;
-        while (Expirience > MaxExpirience) LevelUp();
+        while (Expirience >= MaxExpirience) LevelUp();
     }
 
     public void BuyAbility(AbilityData abilityData)
@@ -133,6 +136,7 @@ public class Player: Creature
 
     private readonly Timer _timer = new Timer();
 
+    private readonly SoundEffect _throwSoundEffect = MainGame.Instance.Content.Load<SoundEffect>("sounds/steam");
     private void ThrowKnife()
     {
         if (!_timer.IsCompleted) return;
@@ -156,6 +160,8 @@ public class Player: Creature
         {
             Position = source,
         });
+
+        _throwSoundEffect.Play(.2f, 1f, 1f);
         _timer.Reset(_creatureData.SecondCooldown*(1-AbilityPack.SecondCooldown));
     }
 

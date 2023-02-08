@@ -1,5 +1,6 @@
 ﻿using MagicalLabyrinth.Screens;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
@@ -98,6 +99,7 @@ public class MainGame : Game
         MediaPlayer.IsRepeating = true;
         MediaPlayer.Play(Content.Load<Song>("Hero Immortal"));
         MediaPlayer.Volume = .1f;
+        SoundEffect.MasterVolume = .1f;
     }
 
     protected override void Update(GameTime gameTime)

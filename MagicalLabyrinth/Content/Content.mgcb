@@ -287,3 +287,23 @@
 /processor:SongProcessor
 /build:Hero Immortal.mp3
 
+#begin sounds/melee sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/build:sounds/melee sound.wav
+
+#begin sounds/sword sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/build:sounds/sword sound.wav
+
+#begin sounds/steam.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/build:sounds/steam.mp3
+
+#begin sounds/Fire.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/build:sounds/Fire.wav
+
