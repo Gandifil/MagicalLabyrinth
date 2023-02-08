@@ -1,6 +1,7 @@
 ﻿using MagicalLabyrinth.Sprites;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame.Extended;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Content;
@@ -41,6 +42,7 @@ public abstract class Entity: IEntity
     }
 
     public bool IsAlive { get; private set; } = true;
+    public RectangleF HitBox { get => new RectangleF((Position - _sprite.Origin).ToPoint(), _sprite.TextureRegion.Size); }
 
     protected void Die()
     {

@@ -24,8 +24,7 @@ public abstract class Creature: Entity
     private int _hp = 100;
 
     public float CURRENT_FLOOR => Y_FLOOR_LEVEL - _sprite.Origin.Y;
-
-    private Tweener _tweener = new Tweener();
+    
     public float TweenerColor { get; set; } = 0f;
 
     public void Hurt(int damage)
@@ -33,15 +32,14 @@ public abstract class Creature: Entity
         _hp -= damage;
         if (_hp <= 0)
             Die();
-        _tweener
-            .TweenTo(
+        TweenerColor = 1;
+        MainGame.Screen.Tweener
+           .TweenTo(
                 target: this,
                 expression: sprite => sprite.TweenerColor,
-                toValue: 1f, duration: .2f, delay: 0f)
-            //.RepeatForever(repeatDelay: 0.1f)
-            .AutoReverse()
-            //.Repeat(2);
-        .Easing(EasingFunctions.BounceOut);
+                toValue: 0f, duration: .2f, delay: 0f)
+            //.AutoReverse()
+            .Easing(EasingFunctions.BounceOut);
     }
 
     protected int _isMoving = 0;
@@ -52,14 +50,13 @@ public abstract class Creature: Entity
         
         var dt = gameTime.GetElapsedSeconds();
         _position.X += _isMoving * _direction * dt * _creatureData.Speed;
-        _tweener.Update(dt);
     }
 
     public int Level { get; set; } = 1;
     
     public override void Draw(SpriteBatch spriteBatch)
     {
-        _sprite.Color = TweenerColor < .8f ? Color.White : Color.Red;
+        _sprite.Color = TweenerColor < .3f ? Color.White : Color.Red;
         base.Draw(spriteBatch);
     }
 }

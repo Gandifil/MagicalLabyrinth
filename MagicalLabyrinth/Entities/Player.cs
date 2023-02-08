@@ -71,8 +71,6 @@ public class Player: Creature
             _isMoving = 1;
         }
         
-        
-        
         if (keyboardState.IsKeyDown(Keys.Q))
             if (AbilityPack.HasTag("knifeFlow"))
                 ThrowKnife();
@@ -137,11 +135,10 @@ public class Player: Creature
                 && _sprite.Progress is > 0.5f and < 0.95f)
             {
                 _sprite.Play(_sprite.CurrentAnimationName == "strike2" ? "strike3" : "strike2",
-                    () => _isStriking = false, 1/(1 + AbilityPack.BaseAttackPower));
+                    () => _isStriking = false, (1 - AbilityPack.BaseAttackPower));
             }
             else
-                //_sprite.Play("strike1");
-            _sprite.Play("strike1", () => _isStriking = false, 1/(1 + AbilityPack.BaseAttackPower));
+                _sprite.Play("strike1", () => _isStriking = false, (1 - AbilityPack.BaseAttackPower));
         }
     }
 

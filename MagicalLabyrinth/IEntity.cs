@@ -8,4 +8,5 @@ public interface IEntity: IUpdate, IMovable
 {
     void Draw(SpriteBatch spriteBatch);
     bool IsAlive { get; }
+    RectangleF HitBox { get; }
 }

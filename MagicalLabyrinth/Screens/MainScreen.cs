@@ -12,6 +12,7 @@ using MonoGame.Extended.Input.InputListeners;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Tiled;
 using MonoGame.Extended.Tiled.Renderers;
+using MonoGame.Extended.Tweening;
 
 namespace MagicalLabyrinth.Screens;
 
@@ -25,6 +26,7 @@ public class MainScreen: GameScreen
     TiledMapRenderer _tiledMapRenderer;
 
     public Player Player { get; private set; }
+    public Tweener Tweener { get; private set; } = new Tweener();
 
     public MainScreen(MainGame game) : base(game)
     {
@@ -75,6 +77,7 @@ public class MainScreen: GameScreen
             entity.Update(gameTime);
         _entities.AddRange(_spawnEntities);
         _spawnEntities.Clear();
+        Tweener.Update(deltaSeconds);
         _tiledMapRenderer.Update(gameTime);
     }
 
@@ -99,11 +102,14 @@ public class MainScreen: GameScreen
         foreach (var entity in _entities)
             if (entity is Creature creature)
                 if (isFromPlayer != entity is Player)
-                    if (damageZone.Contains(entity.Position))
+                {
+                    if (damageZone.Intersects(entity.HitBox))
                     {
                         creature.Hurt(value);
                         Player.AddExpirience();
                     }
+                    
+                }
     }
 
     private readonly List<IEntity> _spawnEntities = new();
