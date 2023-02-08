@@ -1,4 +1,5 @@
-﻿using MagicalLabyrinth.Entities;
+﻿using System;
+using MagicalLabyrinth.Entities;
 using MagicalLabyrinth.Entities.Utils;
 
 namespace MagicalLabyrinth.Utils;
@@ -19,9 +20,21 @@ public class Spawner
         _timer.Update(dt);
         if (_timer.IsCompleted)
         {
-            var screen = MainGame.Screen;
-            screen.Spawn(new RedSkinEnemy(screen, 50));
-            _timer.Reset(COOLDOWN);
+            Spawn();
+            _timer.Reset(MainGame.Screen.Player.Level > 5 ? COOLDOWN / 2: COOLDOWN);
         }
+    }
+
+    private void Spawn()
+    {
+        var screen = MainGame.Screen;
+        var index = Random.Shared.Next(0, 10);
+        
+        IEntity newEntity = null;
+        if (MainGame.Screen.Player.Level > 2 && index is >6 and <9 ) newEntity = new Golem(screen, screen.GetSpawnPoint());
+        if (MainGame.Screen.Player.Level > 3 && index == 9 ) newEntity = new Golem(screen, screen.GetSpawnPoint());
+        newEntity ??= new RedSkinEnemy(screen, screen.GetSpawnPoint());
+        
+        screen.Spawn(newEntity);
     }
 }

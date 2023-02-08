@@ -47,6 +47,7 @@ public class Player: Creature
         Expirience -= MaxExpirience;
         MaxExpirience *= 2;
         SkillPoints++;
+        Level++;
     }
 
     public Player(float X): base("player", X)

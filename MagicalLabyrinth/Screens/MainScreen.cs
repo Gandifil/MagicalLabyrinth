@@ -161,4 +161,17 @@ public class MainScreen: GameScreen
     {
         _spawnEntities.Add(entity);
     }
+
+    public int GetSpawnPoint()
+    {
+        var x = (float)Random.Shared.Next(0, _tiledMap.WidthInPixels);
+
+        if (Game.Camera.BoundingRectangle.Left + CAMERA_BORDER_BUFFER < x &&
+            x < Game.Camera.BoundingRectangle.Right - CAMERA_BORDER_BUFFER)
+            x -= Game.Camera.BoundingRectangle.Width;
+        
+        if (x < 0)
+            x += 2 * Game.Camera.BoundingRectangle.Width;
+        return (int)x;
+    }
 }
