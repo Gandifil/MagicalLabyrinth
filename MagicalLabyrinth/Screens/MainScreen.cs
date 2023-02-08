@@ -33,7 +33,7 @@ public class MainScreen: GameScreen
 
     public MainScreen(MainGame game) : base(game)
     {
-        Player = new Player(50);
+        Player = new Player(250);
         _entities.Add(Player);
         _entities.Add(new RedSkinEnemy(this, 250));
     }
@@ -73,15 +73,24 @@ public class MainScreen: GameScreen
             MainGame.Instance.ScreenManager.LoadScreen(new AbilitiesScreen(this));
     }
 
+    private const float CAMERA_SPEED = 128;
     public override void Update(GameTime gameTime)
     {
-        var deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
+        var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
         foreach (var entity in _entities)
             entity.Update(gameTime);
         _entities.AddRange(_spawnEntities);
         _spawnEntities.Clear();
-        Tweener.Update(deltaSeconds);
+        Tweener.Update(dt);
         _tiledMapRenderer.Update(gameTime);
+
+        if (Game.Camera.BoundingRectangle.Right < _tiledMap.WidthInPixels)
+            if ((Game.Camera.BoundingRectangle.X + Game.Camera.BoundingRectangle.Width * .75f) < Player.Position.X)
+                Game.Camera.Move(new Vector2(dt * CAMERA_SPEED, 0));
+        
+        if (Game.Camera.BoundingRectangle.X >= 0)
+            if ((Game.Camera.BoundingRectangle.X + Game.Camera.BoundingRectangle.Width * .25f) > Player.Position.X)
+                Game.Camera.Move(new Vector2(-dt * CAMERA_SPEED, 0));
     }
 
     //private readonly ProgressBar _hp = new();
