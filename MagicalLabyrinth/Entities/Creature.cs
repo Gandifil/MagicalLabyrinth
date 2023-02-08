@@ -65,4 +65,10 @@ public abstract class Creature: Entity
         _sprite.Color = TweenerColor < .2f ? Color.White : Color.Red;
         base.Draw(spriteBatch);
     }
+
+    public RectangleF GetMeleeDamageZone()
+    {
+        return new RectangleF(Position.X-(_direction == -1 ? _sprite.TextureRegion.Width : 0), Position.Y, 
+            _sprite.TextureRegion.Width, _sprite.TextureRegion.Height);
+    }
 }

@@ -170,10 +170,4 @@ public class Player: Creature
     {
         creature.Hurt((int)((1 + AbilityPack.BaseAttackPower)*_creatureData.BaseAttack));
     }
-
-    public RectangleF GetMeleeDamageZone()
-    {
-        return new RectangleF(Position.X-(_direction == -1 ? _sprite.TextureRegion.Width : 0), Position.Y, 
-            _sprite.TextureRegion.Width, _sprite.TextureRegion.Height);
-    }
 }

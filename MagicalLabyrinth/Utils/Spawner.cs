@@ -31,8 +31,8 @@ public class Spawner
         var index = Random.Shared.Next(0, 10);
         
         IEntity newEntity = null;
-        if (MainGame.Screen.Player.Level > 2 && index is >6 and <9 ) newEntity = new Golem(screen, screen.GetSpawnPoint());
-        if (MainGame.Screen.Player.Level > 3 && index == 9 ) newEntity = new Golem(screen, screen.GetSpawnPoint());
+        if (MainGame.Screen.Player.Level > 2 && index is >5 and <8 ) newEntity = new Golem(screen, screen.GetSpawnPoint());
+        if (MainGame.Screen.Player.Level > 3 && index is >7 and <10 ) newEntity = new Necromancer(screen, screen.GetSpawnPoint());
         newEntity ??= new RedSkinEnemy(screen, screen.GetSpawnPoint());
         
         screen.Spawn(newEntity);

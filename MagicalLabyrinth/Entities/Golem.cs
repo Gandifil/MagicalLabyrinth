@@ -1,6 +1,7 @@
 ﻿using System;
 using MagicalLabyrinth.Screens;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace MagicalLabyrinth.Entities;
@@ -42,10 +43,14 @@ public class Golem: Creature
         base.Update(gameTime);
     }
 
+    private readonly SoundEffect _strikeSoundEffect = MainGame.Instance.Content.Load<SoundEffect>("sounds/hit03");
+    //hit03.mp3
     private void Strike(string name = "strike1")
     {
         _sprite.Play(name, () =>
         {
+            _strikeSoundEffect.Play();
+            MainGame.Screen.ProcessDamageZone(false, creature => creature.Hurt(30), GetMeleeDamageZone());
             _isStriking = false;
         });
         _isStriking = true;
@@ -53,8 +58,8 @@ public class Golem: Creature
 
     private bool NeedToStrike()
     {
-        return Math.Abs(_screen.Player.Position.X- Position.X) < 40
-            && Math.Abs(_screen.Player.Position.Y- Position.Y) < 20;
+        return Math.Abs(_screen.Player.Position.X- Position.X) < _sprite.TextureRegion.Width / 2
+            && Math.Abs(_screen.Player.Position.Y- Position.Y) < _sprite.TextureRegion.Height / 2;
     }
 
     private bool NeedToLeft()

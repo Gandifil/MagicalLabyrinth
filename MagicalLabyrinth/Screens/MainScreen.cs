@@ -37,7 +37,7 @@ public class MainScreen: GameScreen
     {
         Player = new Player(250);
         _entities.Add(Player);
-        _entities.Add(new Necromancer(this, 50));
+        _entities.Add(new Golem(this, 50));
     }
 
     private ProgressBar _hp;
@@ -127,6 +127,8 @@ public class MainScreen: GameScreen
         {
             if (entity is Creature creature)
                 Player.AddExpirience(creature.Level);
+            if (entity is Player)
+                MainGame.Instance.Exit();
         }
 
         _entities.RemoveAll(x => !x.IsAlive);

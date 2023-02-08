@@ -79,9 +79,9 @@ public class Necromancer: Creature
     {
         _sprite.Play(name, () =>
         {
-            var shift = (MainGame.Screen.Player.Position - Position).NormalizedCopy() * 120;
+            var shift = (MainGame.Screen.Player.Position - Position).NormalizedCopy() * 180;
             MainGame.Screen.Spawn(
-                new Projectile(this, shift, creature => { creature.Hurt(1);}, "fireball")
+                new Projectile(this, shift, creature => { creature.Hurt(10);}, "fireball")
                 {
                     Position = Position,
                 });
@@ -89,7 +89,7 @@ public class Necromancer: Creature
             _isStriking = false;
         });
         _isStriking = true;
-        _strikeCooldown.Reset(8f);
+        _strikeCooldown.Reset(5f);
     }
 
     private bool NeedToStrike()

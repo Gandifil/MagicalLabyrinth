@@ -307,3 +307,8 @@
 /processor:SoundEffectProcessor
 /build:sounds/Fire.wav
 
+#begin sounds/hit03.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/build:sounds/hit03.wav
+
