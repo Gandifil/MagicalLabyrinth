@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using MagicalLabyrinth.Entities;
 using MagicalLabyrinth.Entities.Utils;
 using MagicalLabyrinth.Utils;
@@ -36,8 +37,11 @@ public class MainScreen: GameScreen
     {
         Player = new Player(250);
         _entities.Add(Player);
-        _entities.Add(new RedSkinEnemy(this, 250));
+        _entities.Add(new RedSkinEnemy(this, 50));
     }
+
+    private ProgressBar _hp;
+    private ProgressBar _exp;
 
     public override void Initialize()
     {
@@ -45,9 +49,20 @@ public class MainScreen: GameScreen
         
         _tiledMap = Content.Load<TiledMap>("maps/StartLocation");
         _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
+        
+        _hp = new(Game.SpriteBatch)
+        {
+            Width = Game.Graphics.PreferredBackBufferWidth / 2,
+            Height = Game.Graphics.PreferredBackBufferHeight / 30,
+            BorderWidth = 6,
+            BackgroundColor = Color.Transparent,
+        };
 
         _exp = new(Game.SpriteBatch)
         {
+            Width = Game.Graphics.PreferredBackBufferWidth / 4,
+            Height = Game.Graphics.PreferredBackBufferHeight / 30,
+            BorderWidth = 6,
             LowColor = Color.Cyan,
             HighColor = Color.Cyan,
         };
@@ -92,16 +107,27 @@ public class MainScreen: GameScreen
             if ((Game.Camera.BoundingRectangle.X + Game.Camera.BoundingRectangle.Width * .75f) < Player.Position.X)
                 Game.Camera.Move(new Vector2(dt * CAMERA_SPEED, 0));
         
-        if (Game.Camera.BoundingRectangle.X >= 0)
+        if (Game.Camera.BoundingRectangle.X > 0)
             if ((Game.Camera.BoundingRectangle.X + Game.Camera.BoundingRectangle.Width * .25f) > Player.Position.X)
                 Game.Camera.Move(new Vector2(-dt * CAMERA_SPEED, 0));
 
         _spawner.Update(dt);
+        
+        if (Player.Position.X < 10) Player.Position = new Vector2(10, Player.Position.Y);
+        if (Player.Position.X > _tiledMap.WidthInPixels - 10) 
+            Player.Position = new Vector2(_tiledMap.WidthInPixels - 10, Player.Position.Y);
+        
+
+        var entitiesForRemove = _entities.Where(x => !x.IsAlive).ToList();
+        foreach (var entity in entitiesForRemove)
+        {
+            if (entity is Creature creature)
+                Player.AddExpirience(creature.Level);
+        }
+
+        _entities.RemoveAll(x => !x.IsAlive);
     }
 
-
-    //private readonly ProgressBar _hp = new();
-    private ProgressBar _exp;
 
     public override void Draw(GameTime gameTime)
     {
@@ -110,10 +136,10 @@ public class MainScreen: GameScreen
         foreach (var entity in _entities)
             entity.Draw(Game.SpriteBatch);
         
-        _exp.Draw(Game.SpriteBatch, new (0, 0), 
+        _hp.Draw(Game.InterfaceSpriteBatch, new (0, 0), 
+            (float)Player.HP / Player.MaxHP);
+        _exp.Draw(Game.InterfaceSpriteBatch, new (0, _hp.Height + _hp.BorderWidth * 2), 
             (float)Player.Expirience / Player.MaxExpirience);
-
-        _entities.RemoveAll(x => !x.IsAlive);
     }
 
     public void ProcessDamageZone(bool isFromPlayer, Action<Creature> action, RectangleF damageZone)

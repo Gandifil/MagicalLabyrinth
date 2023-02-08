@@ -24,9 +24,9 @@ public class Player: Creature
 
     public AbilityPack AbilityPack { get; private set; } = new AbilityPack();
 
-    public void AddExpirience()
+    public void AddExpirience(int value)
     {
-        Expirience++;
+        Expirience += value;
         while (Expirience > MaxExpirience) LevelUp();
     }
 

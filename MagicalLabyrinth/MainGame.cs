@@ -16,9 +16,10 @@ namespace MagicalLabyrinth;
 
 public class MainGame : Game
 {
-    private GraphicsDeviceManager _graphics;
+    public GraphicsDeviceManager Graphics { get; private set; }
 
     public SpriteBatch SpriteBatch { get; private set; }
+    public SpriteBatch InterfaceSpriteBatch { get; private set; }
     public ScreenManager ScreenManager { get; private set; }
     
     private readonly TouchListener _touchListener;
@@ -34,7 +35,7 @@ public class MainGame : Game
 
     public MainGame()
     {
-        _graphics = new GraphicsDeviceManager(this);
+        Graphics = new GraphicsDeviceManager(this);
         //_graphics.IsFullScreen = true;
         Content.RootDirectory = "Content";
         IsMouseVisible = true;
@@ -55,7 +56,13 @@ public class MainGame : Game
 
     protected override void Initialize()
     {
+        Graphics.IsFullScreen = false;
+        Graphics.PreferredBackBufferWidth = GraphicsDevice.DisplayMode.Width - 50;
+        Graphics.PreferredBackBufferHeight = GraphicsDevice.DisplayMode.Height - 50;
+        Graphics.ApplyChanges();
+            
         SpriteBatch = new SpriteBatch(GraphicsDevice);
+        InterfaceSpriteBatch = new SpriteBatch(GraphicsDevice);
         
         var viewportAdapter = new BoxingViewportAdapter(Window, GraphicsDevice, 400, 240);
         Camera = new OrthographicCamera(viewportAdapter);
@@ -103,7 +110,9 @@ public class MainGame : Game
     {
         var transformMatrix = Camera.GetViewMatrix();
         SpriteBatch.Begin(samplerState: SamplerState.PointClamp, transformMatrix: transformMatrix);
+        InterfaceSpriteBatch.Begin();
         base.Draw(gameTime);
+        InterfaceSpriteBatch.End();
         SpriteBatch.End();
         
         UiSystem.Draw(gameTime, SpriteBatch);

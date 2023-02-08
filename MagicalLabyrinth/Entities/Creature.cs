@@ -21,7 +21,10 @@ public abstract class Creature: Entity
         Position = new Vector2(X, CURRENT_FLOOR);
     }
 
-    private int _hp = 100;
+
+    public int HP { get; private set; }= 100;
+
+    public int MaxHP { get; private set; }= 100;
 
     public float CURRENT_FLOOR => Y_FLOOR_LEVEL - _sprite.Origin.Y;
     
@@ -29,8 +32,8 @@ public abstract class Creature: Entity
 
     public void Hurt(int damage)
     {
-        _hp -= damage;
-        if (_hp <= 0)
+        HP -= damage;
+        if (HP <= 0)
             Die();
         TweenerColor = 1;
         MainGame.Screen.Tweener
