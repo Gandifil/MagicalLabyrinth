@@ -15,4 +15,6 @@ public class AbilityData
     public float SecondAttackPower { get; set; }
 
     public float SecondCooldown { get; set; }
+
+    public string Tags { get; set; }
 }

@@ -73,6 +73,8 @@ public class MainScreen: GameScreen
         var deltaSeconds = (float)gameTime.ElapsedGameTime.TotalSeconds;
         foreach (var entity in _entities)
             entity.Update(gameTime);
+        _entities.AddRange(_spawnEntities);
+        _spawnEntities.Clear();
         _tiledMapRenderer.Update(gameTime);
     }
 
@@ -104,8 +106,10 @@ public class MainScreen: GameScreen
                     }
     }
 
+    private readonly List<IEntity> _spawnEntities = new();
+
     public void Spawn(IEntity entity)
     {
-        _entities.Add(entity);
+        _spawnEntities.Add(entity);
     }
 }

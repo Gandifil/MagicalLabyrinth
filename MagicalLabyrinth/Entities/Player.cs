@@ -71,6 +71,12 @@ public class Player: Creature
             _isMoving = 1;
         }
         
+        
+        
+        if (keyboardState.IsKeyDown(Keys.Q))
+            if (AbilityPack.HasTag("knifeFlow"))
+                ThrowKnife();
+
         if (_ySpeed == 0f && !_isStriking) 
             _sprite.Play(animation);
 
@@ -104,7 +110,8 @@ public class Player: Creature
         }
         
         if (e.Key == Keys.Q)
-            ThrowKnife();
+            if (!AbilityPack.HasTag("knifeFlow"))
+                ThrowKnife();
 
         if (e.Key == Keys.LeftShift)
         {
@@ -156,7 +163,7 @@ public class Player: Creature
         {
             Position = Position + _sprite.Origin / 2,
         });
-        _timer.Reset(_creatureData.SecondCooldown*(1+AbilityPack.SecondCooldown));
+        _timer.Reset(_creatureData.SecondCooldown*(1-AbilityPack.SecondCooldown));
     }
 
     private RectangleF GetDamageZone()
