@@ -24,6 +24,15 @@ public class Necromancer: Creature
         _position.Y = Random.Shared.Next((int)HighBorder, (int)LowBorder);
     }
 
+    public override RectangleF HitBox
+    {
+        get
+        {
+            var size = _sprite.TextureRegion.Size / 3;
+            return new RectangleF((Position - _sprite.Origin + new Vector2(0, 30)).ToPoint() + size, size);
+        }
+    }
+
     private Vector2? _target;
 
     public override void Update(GameTime gameTime)
@@ -60,6 +69,7 @@ public class Necromancer: Creature
         if (!_isStriking) 
             _sprite.Play(animation);
 
+        _strikeCooldown.Update(gameTime.GetElapsedSeconds());
         base.Update(gameTime);
     }
 
@@ -67,9 +77,16 @@ public class Necromancer: Creature
     {
         _sprite.Play(name, () =>
         {
+            var shift = (MainGame.Screen.Player.Position - Position).NormalizedCopy() * 120;
+            MainGame.Screen.Spawn(
+                new Projectile(this, shift, creature => { creature.Hurt(1);}, "fireball")
+                {
+                    Position = Position,
+                });
             _isStriking = false;
         });
         _isStriking = true;
+        _strikeCooldown.Reset(8f);
     }
 
     private bool NeedToStrike()

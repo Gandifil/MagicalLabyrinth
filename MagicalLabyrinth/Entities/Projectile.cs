@@ -15,12 +15,12 @@ public class Projectile: Entity
 
     public float MaxRadius { get; set; } = 500;
     
-    public Projectile(IEntity owner, Vector2 shift, Action<Creature> action)
+    public Projectile(IEntity owner, Vector2 shift, Action<Creature> action, string contentName = "knife")
     {
         _owner = owner;
         _shift = shift;
         _action = action;
-        SetupAnimatedSprite("projectiles/knife.sf");
+        SetupAnimatedSprite($"projectiles/{contentName}.sf");
 
         _rotation = shift.ToAngle() - 1.5708f;
     }

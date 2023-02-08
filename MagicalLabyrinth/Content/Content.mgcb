@@ -274,3 +274,11 @@
 #begin creatures/necromancer.sf
 /copy:creatures/necromancer.sf
 
+#begin projectiles/fireball.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:projectiles/fireball.png
+
+#begin projectiles/fireball.sf
+/copy:projectiles/fireball.sf
+

@@ -1,0 +1,14 @@
+{
+  "textureAtlas": {
+    "texture": "fireball.png",
+    "regionWidth": 16,
+    "regionHeight": 8
+  },
+  "cycles": {
+    "idle": {
+      "frames": [0],
+      "isLooping": true,
+      "frameDuration": 1.2
+    }
+  }
+}

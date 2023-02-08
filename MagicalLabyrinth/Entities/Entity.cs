@@ -42,7 +42,7 @@ public abstract class Entity: IEntity
     }
 
     public bool IsAlive { get; private set; } = true;
-    public RectangleF HitBox { get => new RectangleF((Position - _sprite.Origin).ToPoint(), _sprite.TextureRegion.Size); }
+    public virtual RectangleF HitBox { get => new RectangleF((Position - _sprite.Origin).ToPoint(), _sprite.TextureRegion.Size); }
 
     protected void Die()
     {
