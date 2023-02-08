@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MagicalLabyrinth.Entities;
+using MagicalLabyrinth.Entities.Utils;
 using MagicalLabyrinth.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -74,6 +75,9 @@ public class MainScreen: GameScreen
     }
 
     private const float CAMERA_SPEED = 128;
+
+
+    private readonly Spawner _spawner = new();
     public override void Update(GameTime gameTime)
     {
         var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -91,7 +95,10 @@ public class MainScreen: GameScreen
         if (Game.Camera.BoundingRectangle.X >= 0)
             if ((Game.Camera.BoundingRectangle.X + Game.Camera.BoundingRectangle.Width * .25f) > Player.Position.X)
                 Game.Camera.Move(new Vector2(-dt * CAMERA_SPEED, 0));
+
+        _spawner.Update(dt);
     }
+
 
     //private readonly ProgressBar _hp = new();
     private ProgressBar _exp;
