@@ -96,6 +96,9 @@ public class MainScreen: GameScreen
     private readonly Spawner _spawner = new();
     public override void Update(GameTime gameTime)
     {
+        if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            MainGame.Instance.Exit();
+
         var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
         foreach (var entity in _entities)
             entity.Update(gameTime);

@@ -23,11 +23,6 @@ public class Projectile: Entity
         SetupAnimatedSprite("projectiles/knife.sf");
 
         _rotation = shift.ToAngle() - 1.5708f;
-
-        if (shift.X < 0)
-            SetLeftDirection();
-        else
-            SetRightDirection();
     }
 
     public void CheckCollisions()

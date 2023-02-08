@@ -32,7 +32,7 @@ public class Player: Creature
 
     public void BuyAbility(AbilityData abilityData)
     {
-        if (SkillPoints > 0)
+        if (SkillPoints > 0 && !AbilityPack.Contain(abilityData.Name))
         {
             SkillPoints--;
             AbilityPack.AddAbility(abilityData);
