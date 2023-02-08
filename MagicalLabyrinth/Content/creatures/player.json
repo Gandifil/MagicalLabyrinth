@@ -4,5 +4,7 @@
   "jump": 0,
   "baseAttack": 10,
   "secondAttack": 10,
-  "secondCooldown": 1
+  "secondCooldown": 1,
+  "level": 1,
+  "hp": 100
 }

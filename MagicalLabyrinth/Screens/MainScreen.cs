@@ -37,7 +37,7 @@ public class MainScreen: GameScreen
     {
         Player = new Player(250);
         _entities.Add(Player);
-        _entities.Add(new RedSkinEnemy(this, 50));
+        _entities.Add(new Necromancer(this, 50));
     }
 
     private ProgressBar _hp;

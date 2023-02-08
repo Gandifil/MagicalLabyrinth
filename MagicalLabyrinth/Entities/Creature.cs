@@ -19,12 +19,16 @@ public abstract class Creature: Entity
             .Load<CreatureData>("creatures/" + modelName + ".json", new JsonContentLoader());
         SetupAnimatedSprite("creatures/" + _creatureData.SpriteSheetName);
         Position = new Vector2(X, CURRENT_FLOOR);
+
+        MaxHP = _creatureData.Hp;
+        HP = _creatureData.Hp;
+        Level = _creatureData.Level;
     }
 
 
-    public int HP { get; private set; }= 100;
+    public int HP { get; private set; }
 
-    public int MaxHP { get; private set; }= 100;
+    public int MaxHP { get; private set; }
 
     public float CURRENT_FLOOR => Y_FLOOR_LEVEL - _sprite.Origin.Y;
     

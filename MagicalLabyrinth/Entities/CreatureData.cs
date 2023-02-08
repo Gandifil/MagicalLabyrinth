@@ -12,5 +12,9 @@ public class CreatureData
 
     public float SecondCooldown { get; set; }
 
+    public int Hp { get; set; }
+
+    public int Level { get; set; }
+
     public float Jump { get; set; }
 }

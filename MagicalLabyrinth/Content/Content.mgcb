@@ -252,3 +252,25 @@
 #begin projectiles/knife.sf
 /copy:projectiles/knife.sf
 
+#begin creatures/golem.json
+/copy:creatures/golem.json
+
+#begin creatures/golem.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:creatures/golem.png
+
+#begin creatures/golem.sf
+/copy:creatures/golem.sf
+
+#begin creatures/necromancer.json
+/copy:creatures/necromancer.json
+
+#begin creatures/necromancer.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:creatures/necromancer.png
+
+#begin creatures/necromancer.sf
+/copy:creatures/necromancer.sf
+

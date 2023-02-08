@@ -1,0 +1,7 @@
+﻿{
+  "spriteSheetName": "golem.sf",
+  "speed": 64,
+  "level": 4,
+  "hp": 300,
+  "jump": 0
+}

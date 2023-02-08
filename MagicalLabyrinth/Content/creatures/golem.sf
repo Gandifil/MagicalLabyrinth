@@ -1,0 +1,29 @@
+{
+  "textureAtlas": {
+    "texture": "golem.png",
+    "regionWidth": 84,
+    "regionHeight": 80
+  },
+  "cycles": {
+    "idle": {
+      "frames": [0,1,2,3],
+      "isLooping": true,
+      "frameDuration": 0.2
+    },
+    "death": {
+      "frames": [4,5,6,7,8],
+      "isLooping": false,
+      "frameDuration": 0.1
+    },
+    "walk": {
+      "frames": [9,10,11,12,13,14,15,16,17],
+      "isLooping": true,
+      "frameDuration": 0.15
+    },
+    "strike1": {
+      "frames": [18,19,20,21,22,23,24,25],
+      "isLooping": false,
+      "frameDuration": 0.1
+    }
+  }
+}
