@@ -128,7 +128,7 @@ public class MainScreen: GameScreen
             if (entity is Creature creature)
                 Player.AddExpirience(creature.Level);
             if (entity is Player)
-                MainGame.Instance.Exit();
+                ScreenManager.LoadScreen(new MessageScreen("К сожалению, вы не справились с испытанием. Рекомендуем попробовать снова.", this));
         }
 
         _entities.RemoveAll(x => !x.IsAlive);

@@ -6,7 +6,7 @@ namespace MagicalLabyrinth.Utils;
 
 public class Spawner
 {
-    private const float COOLDOWN = 5f;
+    private const float COOLDOWN = 4f;
     
     private readonly Timer _timer = new Timer();
 
@@ -21,7 +21,14 @@ public class Spawner
         if (_timer.IsCompleted)
         {
             Spawn();
-            _timer.Reset(MainGame.Screen.Player.Level > 5 ? COOLDOWN / 2: COOLDOWN);
+            if (MainGame.Screen.Player.Level > 5) Spawn();
+        }
+
+        if (MainGame.Screen.Entities.Count == 1)
+        {
+            Spawn();
+            Spawn();
+            Spawn();
         }
     }
 
@@ -36,5 +43,6 @@ public class Spawner
         newEntity ??= new RedSkinEnemy(screen, screen.GetSpawnPoint());
         
         screen.Spawn(newEntity);
+        _timer.Reset(screen.Player.Level > 7 ? COOLDOWN / 2: COOLDOWN);
     }
 }

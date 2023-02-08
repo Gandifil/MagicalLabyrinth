@@ -26,9 +26,9 @@ public abstract class Creature: Entity
     }
 
 
-    public int HP { get; private set; }
+    public int HP { get; protected set; }
 
-    public int MaxHP { get; private set; }
+    public int MaxHP { get; protected set; }
 
     public float CURRENT_FLOOR => Y_FLOOR_LEVEL - _sprite.Origin.Y;
     

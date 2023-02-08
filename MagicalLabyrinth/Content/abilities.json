@@ -1,6 +1,18 @@
 ﻿[
   {
-    "name": "baseAttackPower",
+    "name": "baseAttackPower1",
+    "spriteSheet": "icon01",
+    "Description": "Увеличивает силу ударов на 40%",
+    "BaseAttackPower": 0.4
+  },
+  {
+    "name": "baseAttackPower2",
+    "spriteSheet": "icon18",
+    "Description": "Увеличивает силу ударов на 40%",
+    "BaseAttackPower": 0.4
+  },
+  {
+    "name": "baseAttackPower09",
     "spriteSheet": "icon01",
     "Description": "Увеличивает силу ударов на 40%",
     "BaseAttackPower": 0.4
@@ -29,5 +41,23 @@
     "spriteSheet": "icon05",
     "Description": "Вместо одного ножа выбрасывается 3 веером.",
     "tags": "knifeMultiple"
+  },
+  {
+    "name": "moreHealth",
+    "spriteSheet": "icon25",
+    "Description": "Увеличивает здоровье в 2 раза. Частично восстанавливает ранения",
+    "tags": "moreHealth"
+  },
+  {
+    "name": "regeneration",
+    "spriteSheet": "icon17",
+    "Description": "Раз в 5 секунд восстанавливает 10 ед. здоровья",
+    "tags": "regeneration"
+  },
+  {
+    "name": "shift",
+    "spriteSheet": "icon29",
+    "Description": "Нажимая левый Shift и кнопки вправо/влево, вы способны переместиться с огромной скоростью и избежать повреждений.",
+    "tags": "shift"
   }
 ]

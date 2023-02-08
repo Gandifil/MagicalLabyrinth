@@ -7,43 +7,50 @@ using MLEM.Ui.Elements;
 using MLEM.Ui.Style;
 using MonoGame.Extended.Input.InputListeners;
 using MonoGame.Extended.Screens;
-using MonoGame.Extended.Content;
 using MonoGame.Extended.Serialization;
 
 namespace MagicalLabyrinth.Screens;
 
-public class AbilitiesScreen: BackScreenBase
+public class MessageScreen: BackScreenBase
 {
-    public AbilitiesScreen(Screen backScreen) : base(backScreen)
+    private readonly string _message;
+    
+    public MessageScreen(string message, Screen backScreen) : base(backScreen)
     {
+        _message = message;
     }
+    
 
     public override void LoadContent()
     {
         base.LoadContent();
 
-        MainGame.Instance.KeyboardListener.KeyPressed += KeyboardListenerOnKeyPressed;
         
         var panel = new Panel(Anchor.Center, size: new Vector2(.5f, .5f), positionOffset: Vector2.Zero)
         {
             Padding = new StyleProp<Padding>(new Padding(-10))
         };
-        panel.AddChild(new Paragraph(Anchor.TopCenter, 1, 
-            _ => "Очки способностей: " + MainGame.Screen.Player.SkillPoints, true));
+        panel.AddChild(new Paragraph(Anchor.TopCenter, 1, _message, true));
         
         panel.AddChild(new VerticalSpace(10));
-        
-        var abilities = MainGame.Instance.Content.Load<AbilityData[]>("abilities.json", new JsonContentLoader());
-        foreach (var abilityData in abilities)
-            panel.AddChild(new AbilityIcon(Anchor.AutoInline, abilityData));
-        panel.AddChild(new Paragraph(Anchor.BottomCenter, 1, "B - возврат к игре", true));
+        panel.AddChild(new Button(Anchor.BottomCenter, new Vector2(.5f, .1f), "Выход")
+        {
+            OnPressed = (element => Exit())
+        });
         MainGame.Instance.UiSystem.Add("ExampleUi", panel);
+        
+        MainGame.Instance.KeyboardListener.KeyPressed += KeyboardListenerOnKeyPressed;
     }
 
     private void KeyboardListenerOnKeyPressed(object sender, KeyboardEventArgs e)
     {
-        if (e.Key == Keys.Escape || e.Key == Keys.B)
-            Back();
+        if (e.Key == Keys.Escape)
+            Exit();
+    }
+
+    private void Exit()
+    {
+        MainGame.Instance.Exit();
     }
 
     public override void UnloadContent()

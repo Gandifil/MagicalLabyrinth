@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using MagicalLabyrinth.Screens;
+using MonoGame.Extended.Screens;
+using MonoGame.Extended.Content;
+using MonoGame.Extended.Serialization;
 
 namespace MagicalLabyrinth.Abilities;
 
@@ -27,6 +31,11 @@ public class AbilityPack: IAbilityPack
 
         if (!string.IsNullOrWhiteSpace(abilityData.Tags))
             _tags += $" {abilityData.Tags} ";
+        
+        var abilities = MainGame.Instance.Content.Load<AbilityData[]>("abilities.json", new JsonContentLoader());
+        if (_abilities.Count == abilities.Length)
+            MainGame.Instance.ScreenManager
+            .LoadScreen(new MessageScreen("Вы по праву можете собой гордиться, достигнув вершин развития в мире Волшебного Лабиринта.", MainGame.Screen));
     }
     
     public bool Contain(string name)

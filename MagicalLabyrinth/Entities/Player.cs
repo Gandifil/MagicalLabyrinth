@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 using MagicalLabyrinth.Abilities;
 using MagicalLabyrinth.Entities.Utils;
 using Microsoft.Xna.Framework;
@@ -22,7 +23,7 @@ public class Player: Creature
 
     public int MaxExpirience { get; private set; } = 8;
 
-    public int SkillPoints { get; private set; } = 10;
+    public int SkillPoints { get; private set; } = 1;
 
     public AbilityPack AbilityPack { get; private set; } = new AbilityPack();
 
@@ -58,6 +59,7 @@ public class Player: Creature
     
     public override void Update(GameTime gameTime)
     {
+        var dt = gameTime.GetElapsedSeconds();
         var keyboardState = Keyboard.GetState();
 
         var animation = "idle";
@@ -85,7 +87,6 @@ public class Player: Creature
 
         if (_ySpeed != 0f)
         {
-            var dt = gameTime.GetElapsedSeconds();
             _position.Y += dt * _ySpeed;
             _ySpeed += dt * 200.8f;
             if (_position.Y > CURRENT_FLOOR)
@@ -94,8 +95,25 @@ public class Player: Creature
                 _ySpeed = 0f;
             }
         }
+
+        if (AbilityPack.HasTag("regeneration"))
+        {
+            if (_regenerationTimer.IsCompleted)
+            {
+                HP = Math.Min(MaxHP, HP + 10);
+                _regenerationTimer.Reset(5f);
+            }
+            _regenerationTimer.Update(dt);
+        }
+
+        if (MaxHP == _creatureData.Hp && AbilityPack.HasTag("moreHealth"))
+        {
+            MaxHP *= 2;
+            HP = Math.Min(MaxHP, HP + _creatureData.Hp);
+        }
+        
         _strike.Update(gameTime);
-        _timer.Update(gameTime.GetElapsedSeconds());
+        _timer.Update(dt);
         base.Update(gameTime);
     }
 
@@ -115,6 +133,7 @@ public class Player: Creature
             if (!AbilityPack.HasTag("knifeFlow"))
                 ThrowKnife();
 
+        if (AbilityPack.HasTag("shift"))
         if (e.Key == Keys.LeftShift)
         {
             _strike.Cancel();
@@ -135,6 +154,7 @@ public class Player: Creature
             _strike.TryStart();
     }
 
+    private readonly Timer _regenerationTimer = new Timer();
     private readonly Timer _timer = new Timer();
 
     private readonly SoundEffect _throwSoundEffect = MainGame.Instance.Content.Load<SoundEffect>("sounds/steam");
