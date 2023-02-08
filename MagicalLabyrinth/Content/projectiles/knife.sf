@@ -1,0 +1,14 @@
+{
+  "textureAtlas": {
+    "texture": "knife.png",
+    "regionWidth": 8,
+    "regionHeight": 5
+  },
+  "cycles": {
+    "idle": {
+      "frames": [0],
+      "isLooping": true,
+      "frameDuration": 0.2
+    }
+  }
+}
