@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using MLEM.Font;
 using MLEM.Textures;
 using MLEM.Ui;
@@ -94,6 +95,9 @@ public class MainGame : Game
             TextColor = Color.Black,
         };
         UiSystem.Style = style;
+        MediaPlayer.IsRepeating = true;
+        MediaPlayer.Play(Content.Load<Song>("Hero Immortal"));
+        MediaPlayer.Volume = .1f;
     }
 
     protected override void Update(GameTime gameTime)

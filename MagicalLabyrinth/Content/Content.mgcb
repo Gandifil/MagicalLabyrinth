@@ -282,3 +282,8 @@
 #begin projectiles/fireball.sf
 /copy:projectiles/fireball.sf
 
+#begin Hero Immortal.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/build:Hero Immortal.mp3
+
