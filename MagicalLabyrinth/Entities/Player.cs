@@ -79,9 +79,9 @@ public class Player: Creature
             var dt = gameTime.GetElapsedSeconds();
             _position.Y += dt * _ySpeed;
             _ySpeed += dt * 200.8f;
-            if (_position.Y > XLINE)
+            if (_position.Y > CURRENT_FLOOR)
             {
-                _position.Y = XLINE;
+                _position.Y = CURRENT_FLOOR;
                 _ySpeed = 0f;
             }
         }
@@ -103,12 +103,7 @@ public class Player: Creature
         }
         
         if (e.Key == Keys.Q)
-        {
-            MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 600f, 0f))
-            {
-                Position = Position,
-            });
-        }
+            ThrowKnife();
 
         if (e.Key == Keys.LeftShift)
         {
@@ -140,6 +135,22 @@ public class Player: Creature
                 //_sprite.Play("strike1");
             _sprite.Play("strike1", () => _isStriking = false, 1/(1 + AbilityPack.BaseAttackPower));
         }
+    }
+
+    private void ThrowKnife()
+    {
+        MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, -70f))
+        {
+            Position = Position + _sprite.Origin / 2,
+        });
+        MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, 0f))
+        {
+            Position = Position + _sprite.Origin / 2,
+        });
+        MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, 70f))
+        {
+            Position = Position + _sprite.Origin / 2,
+        });
     }
 
     private RectangleF GetDamageZone()

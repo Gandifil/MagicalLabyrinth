@@ -25,7 +25,7 @@ public abstract class Entity: IEntity
         _sprite = new AnimatedSprite(spriteSheet, "idle");
     }
 
-    public const float XLINE = 178;
+    public const float Y_FLOOR_LEVEL = 192;
 
     protected Vector2 _position;
 
@@ -37,7 +37,7 @@ public abstract class Entity: IEntity
     
     public virtual void Draw(SpriteBatch spriteBatch)
     {
-        spriteBatch.Draw(_sprite, Position);
+        spriteBatch.Draw(_sprite, Position, rotation: _rotation);
     }
 
     public bool IsAlive { get; private set; } = true;
@@ -48,6 +48,8 @@ public abstract class Entity: IEntity
     }
 
     protected int _direction = 1;
+    protected float _rotation;
+
     protected void SetLeftDirection()
     {
         _sprite.Effect = SpriteEffects.FlipHorizontally;

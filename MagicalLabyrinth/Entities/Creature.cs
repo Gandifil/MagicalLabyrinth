@@ -18,10 +18,12 @@ public abstract class Creature: Entity
         _creatureData = MainGame.Instance.Content
             .Load<CreatureData>("creatures/" + modelName + ".json", new JsonContentLoader());
         SetupAnimatedSprite("creatures/" + _creatureData.SpriteSheetName);
-        Position = new Vector2(X, XLINE);
+        Position = new Vector2(X, CURRENT_FLOOR);
     }
 
     private int _hp = 100;
+
+    public float CURRENT_FLOOR => Y_FLOOR_LEVEL - _sprite.Origin.Y;
 
     private Tweener _tweener = new Tweener();
     public float TweenerColor { get; set; } = 0f;

@@ -19,6 +19,10 @@ public class Projectile: Entity
         _owner = owner;
         _shift = shift;
         SetupAnimatedSprite("projectiles/knife.sf");
+        
+        //_sprite.
+
+        _rotation = shift.ToAngle() - 1.5708f;
 
         if (shift.X < 0)
             SetLeftDirection();
@@ -32,6 +36,9 @@ public class Projectile: Entity
 
         Position += gameTime.GetElapsedSeconds() * _shift;
 
+        if (Position.Y > Y_FLOOR_LEVEL)
+            Die();
+        
         if ((_owner.Position - Position).Length() > MaxRadius)
             Die();
     }
