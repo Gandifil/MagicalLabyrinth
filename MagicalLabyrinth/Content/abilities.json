@@ -10,5 +10,18 @@
     "spriteSheet": "icon02",
     "Description": "Увеличивает скорость ударов на 40%",
     "BaseAttackSpeed": 0.4
+  },
+  {
+    "name": "knifeFlow",
+    "spriteSheet": "icon04",
+    "Description": "Увеличивает скорость восстановления ножей на 50%.",
+    "SecondCooldown": 0.5
+  },
+  {
+    "name": "knifeFlow",
+    "spriteSheet": "icon04",
+    "Description": "Позволяет выпускать ножи потоком, удерживая клавишу Q. Увеличивает скорость восстановления ножей на 30%.",
+    "SecondCooldown": 0.3,
+    "tags": "knifeFlow"
   }
 ]
