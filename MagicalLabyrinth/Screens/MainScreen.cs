@@ -90,6 +90,7 @@ public class MainScreen: GameScreen
     }
 
     private const float CAMERA_SPEED = 128;
+    private const float CAMERA_BORDER_BUFFER = 16;
 
 
     private readonly Spawner _spawner = new();
@@ -103,19 +104,19 @@ public class MainScreen: GameScreen
         Tweener.Update(dt);
         _tiledMapRenderer.Update(gameTime);
 
-        if (Game.Camera.BoundingRectangle.Right < _tiledMap.WidthInPixels)
+        if (Game.Camera.BoundingRectangle.Right < _tiledMap.WidthInPixels - CAMERA_BORDER_BUFFER)
             if ((Game.Camera.BoundingRectangle.X + Game.Camera.BoundingRectangle.Width * .75f) < Player.Position.X)
                 Game.Camera.Move(new Vector2(dt * CAMERA_SPEED, 0));
         
-        if (Game.Camera.BoundingRectangle.X > 0)
+        if (Game.Camera.BoundingRectangle.X > CAMERA_BORDER_BUFFER)
             if ((Game.Camera.BoundingRectangle.X + Game.Camera.BoundingRectangle.Width * .25f) > Player.Position.X)
                 Game.Camera.Move(new Vector2(-dt * CAMERA_SPEED, 0));
 
         _spawner.Update(dt);
         
         if (Player.Position.X < 10) Player.Position = new Vector2(10, Player.Position.Y);
-        if (Player.Position.X > _tiledMap.WidthInPixels - 10) 
-            Player.Position = new Vector2(_tiledMap.WidthInPixels - 10, Player.Position.Y);
+        if (Player.Position.X > _tiledMap.WidthInPixels - 10 - CAMERA_BORDER_BUFFER) 
+            Player.Position = new Vector2(_tiledMap.WidthInPixels - 10  - CAMERA_BORDER_BUFFER, Player.Position.Y);
         
 
         var entitiesForRemove = _entities.Where(x => !x.IsAlive).ToList();
