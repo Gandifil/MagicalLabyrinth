@@ -12,8 +12,8 @@
     "BaseAttackSpeed": 0.4
   },
   {
-    "name": "knifeFlow",
-    "spriteSheet": "icon04",
+    "name": "knifeSpeed",
+    "spriteSheet": "icon03",
     "Description": "Увеличивает скорость восстановления ножей на 50%.",
     "SecondCooldown": 0.5
   },
@@ -23,5 +23,11 @@
     "Description": "Позволяет выпускать ножи потоком, удерживая клавишу Q. Увеличивает скорость восстановления ножей на 30%.",
     "SecondCooldown": 0.3,
     "tags": "knifeFlow"
+  },
+  {
+    "name": "knifeMultiple",
+    "spriteSheet": "icon05",
+    "Description": "Вместо одного ножа выбрасывается 3 веером.",
+    "tags": "knifeMultiple"
   }
 ]

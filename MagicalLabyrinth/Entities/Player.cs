@@ -150,16 +150,20 @@ public class Player: Creature
     private void ThrowKnife()
     {
         if (!_timer.IsCompleted) return;
+
+        if (AbilityPack.HasTag("knifeMultiple"))
+        {
+            MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, -70f))
+            {
+                Position = Position + _sprite.Origin / 2,
+            });
+            MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, 70f))
+            {
+                Position = Position + _sprite.Origin / 2,
+            });
+        }
         
-        MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, -70f))
-        {
-            Position = Position + _sprite.Origin / 2,
-        });
         MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, 0f))
-        {
-            Position = Position + _sprite.Origin / 2,
-        });
-        MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, 70f))
         {
             Position = Position + _sprite.Origin / 2,
         });
