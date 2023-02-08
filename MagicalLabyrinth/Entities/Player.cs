@@ -148,21 +148,24 @@ public class Player: Creature
     {
         if (!_timer.IsCompleted) return;
 
+        var source = Position + _sprite.Origin / 2;
+        var action = (Creature c) => c.Hurt((int)((1 + AbilityPack.SecondAttackPower)*_creatureData.SecondAttack));
+
         if (AbilityPack.HasTag("knifeMultiple"))
         {
-            MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, -70f))
+            MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, -70f), action)
             {
-                Position = Position + _sprite.Origin / 2,
+                Position = source,
             });
-            MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, 70f))
+            MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, 70f), action)
             {
-                Position = Position + _sprite.Origin / 2,
+                Position = source,
             });
         }
         
-        MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, 0f))
+        MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, 0f), action)
         {
-            Position = Position + _sprite.Origin / 2,
+            Position = source,
         });
         _timer.Reset(_creatureData.SecondCooldown*(1-AbilityPack.SecondCooldown));
     }

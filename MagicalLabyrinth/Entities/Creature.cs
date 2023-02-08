@@ -37,8 +37,7 @@ public abstract class Creature: Entity
            .TweenTo(
                 target: this,
                 expression: sprite => sprite.TweenerColor,
-                toValue: 0f, duration: .2f, delay: 0f)
-            //.AutoReverse()
+                toValue: 0f, duration: .5f, delay: 0f)
             .Easing(EasingFunctions.BounceOut);
     }
 
@@ -56,7 +55,7 @@ public abstract class Creature: Entity
     
     public override void Draw(SpriteBatch spriteBatch)
     {
-        _sprite.Color = TweenerColor < .3f ? Color.White : Color.Red;
+        _sprite.Color = TweenerColor < .2f ? Color.White : Color.Red;
         base.Draw(spriteBatch);
     }
 }

@@ -21,7 +21,9 @@ public class MainScreen: GameScreen
     private new MainGame Game => (MainGame) base.Game;
 
     private List<IEntity> _entities = new();
-    
+
+    public IReadOnlyList<IEntity> Entities => _entities;
+
     TiledMap _tiledMap;
     TiledMapRenderer _tiledMapRenderer;
 
@@ -102,14 +104,8 @@ public class MainScreen: GameScreen
         foreach (var entity in _entities)
             if (entity is Creature creature)
                 if (isFromPlayer != entity is Player)
-                {
                     if (damageZone.Intersects(entity.HitBox))
-                    {
                         creature.Hurt(value);
-                        Player.AddExpirience();
-                    }
-                    
-                }
     }
 
     private readonly List<IEntity> _spawnEntities = new();
