@@ -86,6 +86,7 @@ public class Player: Creature
             }
         }
         _strike?.Update(gameTime);
+        _timer.Update(gameTime.GetElapsedSeconds());
         base.Update(gameTime);
     }
 
@@ -137,8 +138,12 @@ public class Player: Creature
         }
     }
 
+    private readonly Timer _timer = new Timer();
+
     private void ThrowKnife()
     {
+        if (!_timer.IsCompleted) return;
+        
         MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, -70f))
         {
             Position = Position + _sprite.Origin / 2,
@@ -151,6 +156,7 @@ public class Player: Creature
         {
             Position = Position + _sprite.Origin / 2,
         });
+        _timer.Reset(_creatureData.SecondCooldown*(1+AbilityPack.SecondCooldown));
     }
 
     private RectangleF GetDamageZone()

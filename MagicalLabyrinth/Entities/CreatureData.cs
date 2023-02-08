@@ -8,5 +8,9 @@ public class CreatureData
 
     public float BaseAttack { get; set; }
 
+    public float SecondAttack { get; set; }
+
+    public float SecondCooldown { get; set; }
+
     public float Jump { get; set; }
 }
