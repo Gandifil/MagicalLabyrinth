@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MagicalLabyrinth.Entities;
 using MagicalLabyrinth.Utils;
 using Microsoft.Xna.Framework;
@@ -99,13 +100,13 @@ public class MainScreen: GameScreen
         _entities.RemoveAll(x => !x.IsAlive);
     }
 
-    public void ProcessDamageZone(bool isFromPlayer, int value, RectangleF damageZone)
+    public void ProcessDamageZone(bool isFromPlayer, Action<Creature> action, RectangleF damageZone)
     {
         foreach (var entity in _entities)
             if (entity is Creature creature)
                 if (isFromPlayer != entity is Player)
                     if (damageZone.Intersects(entity.HitBox))
-                        creature.Hurt(value);
+                        action.Invoke(creature);
     }
 
     private readonly List<IEntity> _spawnEntities = new();

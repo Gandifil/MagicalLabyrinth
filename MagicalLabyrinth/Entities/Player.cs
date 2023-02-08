@@ -20,7 +20,7 @@ public class Player: Creature
 
     public int MaxExpirience { get; private set; } = 8;
 
-    public int SkillPoints { get; private set; } = 1;
+    public int SkillPoints { get; private set; } = 10;
 
     public AbilityPack AbilityPack { get; private set; } = new AbilityPack();
 
@@ -49,6 +49,7 @@ public class Player: Creature
     public Player(float X): base("player", X)
     {
         MainGame.Instance.KeyboardListener.KeyPressed += OnKeyPressed;
+        _strike = new Strike(this, _sprite, OnBaseAttackCollised);
     }
     
     public override void Update(GameTime gameTime)
@@ -57,14 +58,14 @@ public class Player: Creature
 
         var animation = "idle";
         _isMoving = 0;
-        if ((keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))  && !_isStriking)
+        if ((keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left)))
         {
             SetLeftDirection();
             animation = "walk";
             _isMoving = 1;
         }
         
-        if ((keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))  && !_isStriking)
+        if ((keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right)))
         {
             SetRightDirection();
             animation = "walk";
@@ -75,7 +76,7 @@ public class Player: Creature
             if (AbilityPack.HasTag("knifeFlow"))
                 ThrowKnife();
 
-        if (_ySpeed == 0f && !_isStriking) 
+        if (_ySpeed == 0f && !_strike.IsStriking) 
             _sprite.Play(animation);
 
         if (_ySpeed != 0f)
@@ -89,21 +90,20 @@ public class Player: Creature
                 _ySpeed = 0f;
             }
         }
-        _strike?.Update(gameTime);
+        _strike.Update(gameTime);
         _timer.Update(gameTime.GetElapsedSeconds());
         base.Update(gameTime);
     }
 
     private float _ySpeed = 0f;
-    private bool _isStriking = false;
-    private Strike _strike;
+    private readonly Strike _strike;
 
     private void OnKeyPressed(object sender, KeyboardEventArgs e)
     {
         if (e.Key == Keys.Space && _ySpeed == 0f)
         {
-            
             _ySpeed = -200f;
+            _strike.Cancel();
             _sprite.Play("jump");
         }
         
@@ -113,33 +113,22 @@ public class Player: Creature
 
         if (e.Key == Keys.LeftShift)
         {
+            _strike.Cancel();
             var keyboardState = Keyboard.GetState();
-            if ((keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left))  && !_isStriking)
+            if ((keyboardState.IsKeyDown(Keys.A) || keyboardState.IsKeyDown(Keys.Left)))
             {
                 _sprite.Effect = SpriteEffects.FlipHorizontally;
                 _position.X -= 20;
             }
         
-            else if ((keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right))  && !_isStriking)
+            else if ((keyboardState.IsKeyDown(Keys.D) || keyboardState.IsKeyDown(Keys.Right)))
             {
                 _sprite.Effect = SpriteEffects.None;
                 _position.X += 20;
             }
         }
         if (e.Key == Keys.F)
-        {
-            _isStriking = true;
-            _strike = new Strike(_sprite, () => MainGame.Screen.ProcessDamageZone(true, 
-                (int)((1 + AbilityPack.BaseAttackPower)*_creatureData.BaseAttack), GetDamageZone()));
-            if (_sprite.CurrentAnimationName.StartsWith("strike")
-                && _sprite.Progress is > 0.5f and < 0.95f)
-            {
-                _sprite.Play(_sprite.CurrentAnimationName == "strike2" ? "strike3" : "strike2",
-                    () => _isStriking = false, (1 - AbilityPack.BaseAttackPower));
-            }
-            else
-                _sprite.Play("strike1", () => _isStriking = false, (1 - AbilityPack.BaseAttackPower));
-        }
+            _strike.TryStart();
     }
 
     private readonly Timer _timer = new Timer();
@@ -170,7 +159,12 @@ public class Player: Creature
         _timer.Reset(_creatureData.SecondCooldown*(1-AbilityPack.SecondCooldown));
     }
 
-    private RectangleF GetDamageZone()
+    private void OnBaseAttackCollised(Creature creature)
+    {
+        creature.Hurt((int)((1 + AbilityPack.BaseAttackPower)*_creatureData.BaseAttack));
+    }
+
+    public RectangleF GetMeleeDamageZone()
     {
         return new RectangleF(Position.X-(_direction == -1 ? _sprite.TextureRegion.Width : 0), Position.Y, 
             _sprite.TextureRegion.Width, _sprite.TextureRegion.Height);

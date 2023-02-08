@@ -7,26 +7,58 @@ namespace MagicalLabyrinth.Entities.Utils;
 
 public class Strike: IUpdate
 {
+    private readonly Player _player;
     private readonly AnimatedSprite _sprite;
-    private readonly Action _action;
+    private readonly Action<Creature> _action;
 
-    public bool IsCompleted { get; private set; }
+    public bool IsNeedAction { get; private set; }
+    public bool IsNeedNext { get; private set; }
+    
+    public bool IsStriking { get; private set; }
 
-    public Strike(AnimatedSprite sprite, Action action)
+    public Strike(Player player, AnimatedSprite sprite, Action<Creature> action)
     {
+        _player = player;
         _sprite = sprite;
         _action = action;
     }
 
     public void Update(GameTime gameTime)
     {
-        if (IsCompleted)
-            return;
-        
-        if (_sprite.Progress > .5f)
+        if (IsNeedAction && _sprite.Progress > .33f)
         {
-            _action?.Invoke();
-            IsCompleted = true;
+            MainGame.Screen.ProcessDamageZone(true, _action, _player.GetMeleeDamageZone());
+            IsNeedAction = false;
         }
+        
+        if (IsNeedNext && _sprite.Progress > .66f)
+            Start();
+    }
+
+    private void Start(string name = null)
+    {
+        IsNeedNext = false;
+        IsNeedAction = true;
+        IsStriking = true;
+
+        name ??= _sprite.CurrentAnimationName == "strike2" ? "strike3" : "strike2";
+        
+        _sprite.Play(name, () => IsStriking = false, 1 - _player.AbilityPack.BaseAttackPower);
+    }
+
+    public void TryStart()
+    {
+        if (IsStriking)
+            IsNeedNext = true;
+        else
+            Start("strike1"); 
+    }
+
+    public void Cancel()
+    {
+        IsNeedNext = false;
+        IsNeedAction = false;
+        IsStriking = false;
+        _sprite.Play("idle");
     }
 }
