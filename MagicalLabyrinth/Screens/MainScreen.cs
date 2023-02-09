@@ -42,6 +42,7 @@ public class MainScreen: GameScreen
 
     private ProgressBar _hp;
     private ProgressBar _exp;
+    private SpriteFont _font;
 
     public override void Initialize()
     {
@@ -71,7 +72,7 @@ public class MainScreen: GameScreen
     public override void LoadContent()
     {
         base.LoadContent();
-        
+        _font = Content.Load<SpriteFont>("fonts/gui");
         
         MainGame.Instance.KeyboardListener.KeyPressed += KeyboardListenerOnKeyPressed;
     }
@@ -96,9 +97,6 @@ public class MainScreen: GameScreen
     private readonly Spawner _spawner = new();
     public override void Update(GameTime gameTime)
     {
-        if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-            MainGame.Instance.Exit();
-
         var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
         foreach (var entity in _entities)
             entity.Update(gameTime);
@@ -144,8 +142,15 @@ public class MainScreen: GameScreen
         
         _hp.Draw(Game.InterfaceSpriteBatch, new (0, 0), 
             (float)Player.HP / Player.MaxHP);
+        Game.InterfaceSpriteBatch.DrawString(_font, $"HP: {Player.HP}/{Player.MaxHP}", 
+            new Vector2(_hp.Width + 10, 0)
+            , Color.Black, 0f, new Vector2(), 3f, SpriteEffects.None, 0f);
+
         _exp.Draw(Game.InterfaceSpriteBatch, new (0, _hp.Height + _hp.BorderWidth * 2), 
             (float)Player.Expirience / Player.MaxExpirience);
+        Game.InterfaceSpriteBatch.DrawString(_font, $"Lvl: {Player.Level}", 
+            new Vector2(_exp.Width + 10, _hp.Height + _hp.BorderWidth * 2)
+            , Color.Black, 0f, new Vector2(), 3f, SpriteEffects.None, 0f);
     }
 
     public void ProcessDamageZone(bool isFromPlayer, Action<Creature> action, RectangleF damageZone)
