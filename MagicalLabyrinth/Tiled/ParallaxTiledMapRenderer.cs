@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.Tiled;
@@ -14,11 +15,31 @@ public class ParallaxTiledMapRenderer: TiledMapRenderer
     // TODO: this class has a readonly instance of TiledMap, but base class can reload it.
     private readonly TiledMap _tiledMap;
     private readonly OrthographicCamera _camera;
-    
+    private Dictionary<int, Vector2> _parallaxFactors = new();
+
     public ParallaxTiledMapRenderer(OrthographicCamera camera, GraphicsDevice graphicsDevice, TiledMap map = null) : base(graphicsDevice, map)
     {
         _tiledMap = map;
         _camera = camera;
+
+        LoadParallaxFactors();
+    }
+
+    private void LoadParallaxFactors()
+    {
+        _parallaxFactors.Clear();
+        for (int layerIndex = 0; layerIndex < _tiledMap.Layers.Count; ++layerIndex)
+            _parallaxFactors[layerIndex] = GetParallaxFactorFor(_tiledMap.Layers[layerIndex]);
+    }
+
+    private Vector2 GetParallaxFactorFor(TiledMapLayer layer)
+    {
+        var parallaxFactor = Vector2.One;
+        if (layer.Properties.TryGetValue(PARALLAX_FACTOR_X_NAME, out string x))
+            parallaxFactor.X = float.Parse(x);
+        if (layer.Properties.TryGetValue(PARALLAX_FACTOR_Y_NAME, out string y))
+            parallaxFactor.Y = float.Parse(y);
+        return parallaxFactor;
     }
 
     public void Draw(
@@ -26,17 +47,7 @@ public class ParallaxTiledMapRenderer: TiledMapRenderer
         Effect effect = null,
         float depth = 0.0f)
     {
-        var defaultMatrix = _camera.GetViewMatrix();
         for (int layerIndex = 0; layerIndex < _tiledMap.Layers.Count; ++layerIndex)
-        {
-            var layer = _tiledMap.Layers[layerIndex];
-            var viewMatrix = defaultMatrix;
-            if (layer.Properties.TryGetValue(PARALLAX_FACTOR_X_NAME, out string x)
-                && layer.Properties.TryGetValue(PARALLAX_FACTOR_Y_NAME, out string y))
-            {
-                viewMatrix = _camera.GetViewMatrix(new Vector2(float.Parse(x), float.Parse(y)));
-            }
-            Draw(layerIndex, viewMatrix, projectionMatrix, effect, depth);
-        }
+            Draw(layerIndex, _camera.GetViewMatrix(_parallaxFactors[layerIndex]), projectionMatrix, effect, depth);
     }
 }
