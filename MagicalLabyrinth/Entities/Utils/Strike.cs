@@ -25,7 +25,7 @@ public class Strike: IUpdate
         _action = action;
     }
 
-    public void Update(GameTime gameTime)
+    public void Update(float dt)
     {
         if (IsNeedAction && _sprite.Progress > .33f)
         {

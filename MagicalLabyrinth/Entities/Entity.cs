@@ -13,9 +13,9 @@ public abstract class Entity: IEntity
 {
     protected AnimatedSprite _sprite;
 
-    public virtual void Update(GameTime gameTime)
+    public virtual void Update(float dt)
     {
-        _sprite.Update(gameTime);
+        _sprite.Update(dt);
     }
 
     protected void SetupAnimatedSprite(string contentName)

@@ -50,11 +50,10 @@ public abstract class Creature: Entity
 
     protected int _isMoving = 0;
     
-    public override void Update(GameTime gameTime)
+    public override void Update(float dt)
     {
-        base.Update(gameTime);
+        base.Update(dt);
         
-        var dt = gameTime.GetElapsedSeconds();
         _position.X += _isMoving * _direction * dt * _creatureData.Speed;
     }
 

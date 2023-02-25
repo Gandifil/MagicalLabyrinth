@@ -100,7 +100,7 @@ public class MainScreen: GameScreen
     {
         var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
         foreach (var entity in _entities)
-            entity.Update(gameTime);
+            entity.Update(dt);
         _entities.AddRange(_spawnEntities);
         _spawnEntities.Clear();
         Tweener.Update(dt);

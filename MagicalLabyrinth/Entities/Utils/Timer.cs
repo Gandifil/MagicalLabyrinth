@@ -2,7 +2,7 @@
 
 namespace MagicalLabyrinth.Entities.Utils;
 
-public class Timer
+public class Timer: IUpdate
 {
     private float _counter;
 

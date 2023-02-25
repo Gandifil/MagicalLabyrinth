@@ -37,11 +37,11 @@ public class Projectile: Entity
                     }
     }
 
-    public override void Update(GameTime gameTime)
+    public override void Update(float dt)
     {
-        base.Update(gameTime);
+        base.Update(dt);
 
-        Position += gameTime.GetElapsedSeconds() * _shift;
+        Position += dt * _shift;
 
         CheckCollisions();
 

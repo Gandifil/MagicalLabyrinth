@@ -57,9 +57,8 @@ public class Player: Creature
         _strike = new Strike(this, _sprite, OnBaseAttackCollised);
     }
     
-    public override void Update(GameTime gameTime)
+    public override void Update(float dt)
     {
-        var dt = gameTime.GetElapsedSeconds();
         var keyboardState = Keyboard.GetState();
 
         var animation = "idle";
@@ -112,9 +111,9 @@ public class Player: Creature
             HP = Math.Min(MaxHP, HP + _creatureData.Hp);
         }
         
-        _strike.Update(gameTime);
+        _strike.Update(dt);
         _timer.Update(dt);
-        base.Update(gameTime);
+        base.Update(dt);
     }
 
     private float _ySpeed = 0f;

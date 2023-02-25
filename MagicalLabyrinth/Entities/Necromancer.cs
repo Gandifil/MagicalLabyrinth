@@ -36,7 +36,7 @@ public class Necromancer: Creature
 
     private Vector2? _target;
 
-    public override void Update(GameTime gameTime)
+    public override void Update(float dt)
     {        
         var animation = "idle";
         _isMoving = 0;
@@ -52,7 +52,7 @@ public class Necromancer: Creature
 
             var dy = _target.Value.Y - Position.Y;
             if (Math.Abs(dy) > 3f)
-                _position.Y += Math.Sign(dy) * gameTime.GetElapsedSeconds() * _creatureData.Speed / 2;
+                _position.Y += Math.Sign(dy) * dt * _creatureData.Speed / 2;
 
             if ((_target.Value - Position).Length() < 30f)
                 _target = null;
@@ -70,8 +70,8 @@ public class Necromancer: Creature
         if (!_isStriking) 
             _sprite.Play(animation);
 
-        _strikeCooldown.Update(gameTime.GetElapsedSeconds());
-        base.Update(gameTime);
+        _strikeCooldown.Update(dt);
+        base.Update(dt);
     }
 
     private readonly SoundEffect _strikeSoundEffect = MainGame.Instance.Content.Load<SoundEffect>("sounds/Fire");

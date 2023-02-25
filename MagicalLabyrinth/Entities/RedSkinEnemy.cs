@@ -15,7 +15,7 @@ public class RedSkinEnemy:Creature
         _screen = screen;
     }
 
-    public override void Update(GameTime gameTime)
+    public override void Update(float dt)
     {        
         var animation = "idle";
         _isMoving = 0;
@@ -40,7 +40,7 @@ public class RedSkinEnemy:Creature
             _sprite.Play(animation);
         
         
-        base.Update(gameTime);
+        base.Update(dt);
     }
 
     private readonly SoundEffect _strikeSoundEffect = MainGame.Instance.Content.Load<SoundEffect>("sounds/melee sound");
