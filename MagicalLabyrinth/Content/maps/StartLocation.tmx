@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="30" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="1">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="30" height="8" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="1">
  <tileset firstgid="1" source="MoonTiles.tsx"/>
  <layer id="2" name="Tile Layer 2" width="30" height="8">
   <data encoding="csv">
@@ -13,11 +13,7 @@
 20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20
 </data>
  </layer>
- <layer id="4" name="Tile Layer 4" width="30" height="8">
-  <properties>
-   <property name="parallaxFactorX" value="0.2"/>
-   <property name="parallaxFactorY" value="0.2"/>
-  </properties>
+ <layer id="4" name="Tile Layer 4" width="30" height="8" parallaxx="0.2" parallaxy="0.2">
   <data encoding="csv">
 16,16,15,16,16,15,16,16,16,15,15,16,14,16,16,16,16,15,16,16,16,15,16,16,15,15,15,16,14,15,
 14,14,14,16,16,16,15,14,14,16,16,14,16,16,14,16,14,14,15,16,15,16,14,15,16,14,14,15,14,16,
@@ -30,9 +26,6 @@
 </data>
  </layer>
  <layer id="3" name="Copy of Tile Layer 1" width="30" height="8">
-  <properties>
-   <property name="physic" value="1"/>
-  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -45,9 +38,6 @@
 </data>
  </layer>
  <layer id="1" name="Tile Layer 1" width="30" height="8">
-  <properties>
-   <property name="physic" value="1"/>
-  </properties>
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,

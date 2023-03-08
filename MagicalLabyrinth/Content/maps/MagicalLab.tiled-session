@@ -10,26 +10,27 @@
     "fileStates": {
         "MoonTiles.tsx": {
             "scaleInDock": 2,
-            "scaleInEditor": 1
+            "scaleInEditor": 4
         },
         "StartLocation.tmx": {
             "scale": 1,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 897.5,
-                "y": 435
+                "x": -1.5,
+                "y": 0.5
             }
         }
     },
     "last.imagePath": "C:/Users/user/Downloads",
     "map.lastUsedFormat": "tmx",
     "openFiles": [
-        "StartLocation.tmx"
+        "StartLocation.tmx",
+        "MoonTiles.tsx"
     ],
     "project": "MagicalLab.tiled-project",
     "recentFiles": [
-        "StartLocation.tmx",
-        "MoonTiles.tsx"
+        "MoonTiles.tsx",
+        "StartLocation.tmx"
     ],
     "tileset.lastUsedFormat": "tsx"
 }

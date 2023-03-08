@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using MagicalLabyrinth.Entities;
 using MagicalLabyrinth.Entities.Utils;
-using MagicalLabyrinth.Tiled;
 using MagicalLabyrinth.Utils;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,7 +28,7 @@ public class MainScreen: GameScreen
     public IReadOnlyList<IEntity> Entities => _entities;
 
     TiledMap _tiledMap;
-    ParallaxTiledMapRenderer _tiledMapRenderer;
+    private TiledMapRenderer _tiledMapRenderer;
 
     public Player Player { get; private set; }
     public Tweener Tweener { get; private set; } = new Tweener();
@@ -50,7 +49,7 @@ public class MainScreen: GameScreen
         base.Initialize();
         
         _tiledMap = Content.Load<TiledMap>("maps/StartLocation");
-        _tiledMapRenderer = new ParallaxTiledMapRenderer(Game.Camera, GraphicsDevice, _tiledMap);
+        _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
         
         _hp = new(Game.SpriteBatch)
         {
@@ -136,7 +135,7 @@ public class MainScreen: GameScreen
 
     public override void Draw(GameTime gameTime)
     {
-        _tiledMapRenderer.Draw(); 
+        (_tiledMapRenderer as TiledMapRenderer).Draw(Game.Camera.GetViewMatrix()); 
         foreach (var entity in _entities)
             entity.Draw(Game.SpriteBatch);
         
