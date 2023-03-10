@@ -38,10 +38,6 @@ public abstract class Creature: Entity
             .Easing(EasingFunctions.BounceOut);
     }
 
-    public int HP { get; protected set; }
-
-    public int MaxHP { get; protected set; }
-
     public float CURRENT_FLOOR => Y_FLOOR_LEVEL - _sprite.Origin.Y;
     
     public float TweenerColor { get; set; } = 0f;

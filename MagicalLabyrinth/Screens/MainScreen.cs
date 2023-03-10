@@ -126,12 +126,12 @@ public class MainScreen: GameScreen
 
     public override void Draw(GameTime gameTime)
     {
-        (_tiledMapRenderer as TiledMapRenderer).Draw(Game.Camera.GetViewMatrix()); 
+        _tiledMapRenderer.Draw(Game.Camera.GetViewMatrix()); 
         _entities.Draw(Game.SpriteBatch);
         
         _hp.Draw(Game.InterfaceSpriteBatch, new (0, 0), 
-            (float)Player.HP / Player.MaxHP);
-        Game.InterfaceSpriteBatch.DrawString(_font, $"HP: {Player.HP}/{Player.MaxHP}", 
+            (float)Player.Body.HP / Player.Body.MaxHP);
+        Game.InterfaceSpriteBatch.DrawString(_font, $"HP: {Player.Body.HP}/{Player.Body.MaxHP}", 
             new Vector2(_hp.Width + 10, 0)
             , Color.Black, 0f, new Vector2(), 3f, SpriteEffects.None, 0f);
 

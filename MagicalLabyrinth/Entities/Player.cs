@@ -71,16 +71,16 @@ public class Player: Creature
         {
             if (_regenerationTimer.IsCompleted)
             {
-                HP = Math.Min(MaxHP, HP + 10);
+                Body.HP.Value = Math.Min(Body.MaxHP, Body.HP + 10);
                 _regenerationTimer.Reset(5f);
             }
             _regenerationTimer.Update(dt);
         }
 
-        if (MaxHP == _creatureData.Hp && Body.AbilityPack.HasTag("moreHealth"))
+        if (Body.MaxHP == _creatureData.Hp && Body.AbilityPack.HasTag("moreHealth"))
         {
-            MaxHP *= 2;
-            HP = Math.Min(MaxHP, HP + _creatureData.Hp);
+            Body.MaxHP.Value *= 2;
+            Body.HP.Value = Math.Min(Body.MaxHP, Body.HP + _creatureData.Hp);
         }
         
         _strike.Update(dt);
