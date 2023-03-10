@@ -41,5 +41,4 @@ public class EvolvingBody: Body
         SkillPoints++;
         Level++;
     }
-    
 }

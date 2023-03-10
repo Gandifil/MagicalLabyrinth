@@ -1,4 +1,5 @@
 ﻿using System;
+using MagicalLabyrinth.Mechanics;
 using MagicalLabyrinth.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -48,7 +49,7 @@ public class RedSkinEnemy:Creature
     {
         _sprite.Play(name + new Random().Next(1,4), () =>
         {
-            MainGame.Screen.ProcessDamageZone(false, creature => creature.Body.Hurt(10), GetMeleeDamageZone());
+            MainGame.Screen.ProcessDamageZone(false, creature => creature.Body.Hurt(new Impact(Body, 30)), GetMeleeDamageZone());
             _isStriking = false;
         });
         _isStriking = true;

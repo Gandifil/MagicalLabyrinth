@@ -134,7 +134,9 @@ public class Player: Creature
         if (!_timer.IsCompleted) return;
 
         var source = Position + _sprite.Origin / 2;
-        var action = (Creature c) => c.Body.Hurt((int)((1 + Body.AbilityPack.SecondAttackPower)*_creatureData.SecondAttack));
+
+        var damage = (int)((1 + Body.AbilityPack.SecondAttackPower) * _creatureData.SecondAttack);
+        var action = (Creature c) => c.Body.Hurt(new Impact(Body, damage));
 
         if (Body.AbilityPack.HasTag("knifeMultiple"))
         {
@@ -159,6 +161,7 @@ public class Player: Creature
 
     private void OnBaseAttackCollised(Creature creature)
     {
-        creature.Body.Hurt((int)((1 + Body.AbilityPack.BaseAttackPower)*_creatureData.BaseAttack));
+        var damage = (int)((1 + Body.AbilityPack.BaseAttackPower) * _creatureData.BaseAttack);
+        creature.Body.Hurt(new Impact(Body, damage));
     }
 }

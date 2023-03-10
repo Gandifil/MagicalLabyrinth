@@ -1,4 +1,5 @@
 ﻿using System;
+using MagicalLabyrinth.Mechanics;
 using MagicalLabyrinth.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -50,7 +51,7 @@ public class Golem: Creature
         _sprite.Play(name, () =>
         {
             _strikeSoundEffect.Play();
-            MainGame.Screen.ProcessDamageZone(false, creature => creature.Body.Hurt(30), GetMeleeDamageZone());
+            MainGame.Screen.ProcessDamageZone(false, creature => creature.Body.Hurt(new Impact(this.Body, 30)), GetMeleeDamageZone());
             _isStriking = false;
         });
         _isStriking = true;

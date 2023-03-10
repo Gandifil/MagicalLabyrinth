@@ -22,12 +22,15 @@ public class Body
 
     public int Level { get; protected set; } = 1;
     
-    public void Hurt(int damage)
+    public void Hurt(IImpact impact)
     {
-        HP.Value -= damage;
+        HP.Value = Math.Max(0, HP - impact.Damage);
         OnDamaged?.Invoke();
         if (HP <= 0)
+        {
             OnDied?.Invoke();
+            (impact.Sender as EvolvingBody)?.AddExpirience(Level);
+        }
     }
 
     public event Action OnDied;

@@ -1,5 +1,6 @@
 ﻿using System;
 using MagicalLabyrinth.Entities.Utils;
+using MagicalLabyrinth.Mechanics;
 using MagicalLabyrinth.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
@@ -80,8 +81,9 @@ public class Necromancer: Creature
         _sprite.Play(name, () =>
         {
             var shift = (MainGame.Screen.Player.Position - Position).NormalizedCopy() * 180;
+            
             MainGame.Screen.Spawn(
-                new Projectile(this, shift, creature => { creature.Body.Hurt(10);}, "fireball")
+                new Projectile(this, shift, creature => { creature.Body.Hurt(new Impact(this.Body, 10));}, "fireball")
                 {
                     Position = Position,
                 });
