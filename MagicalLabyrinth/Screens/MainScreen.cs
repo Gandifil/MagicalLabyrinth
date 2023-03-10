@@ -23,12 +23,11 @@ public class MainScreen: GameScreen
 {
     private new MainGame Game => (MainGame) base.Game;
 
-    private List<IEntity> _entities = new();
-
-    public IReadOnlyList<IEntity> Entities => _entities;
+    public IEnumerable<IEntity> Entities => _entities;
 
     TiledMap _tiledMap;
     private TiledMapRenderer _tiledMapRenderer;
+    private readonly EntitiesCollection _entities = new();
 
     public Player Player { get; private set; }
     public Tweener Tweener { get; private set; } = new Tweener();
@@ -37,7 +36,13 @@ public class MainScreen: GameScreen
     {
         Player = new Player(250);
         _entities.Add(Player);
+        Player.Body.OnDied += PlayerOnDied;
         _entities.Add(new Golem(this, 50));
+    }
+
+    private void PlayerOnDied()
+    {
+        ScreenManager.LoadScreen(new MessageScreen("К сожалению, вы не справились с испытанием. Рекомендуем попробовать снова.", this));
     }
 
     private ProgressBar _hp;
@@ -98,10 +103,7 @@ public class MainScreen: GameScreen
     public override void Update(GameTime gameTime)
     {
         var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
-        foreach (var entity in _entities)
-            entity.Update(dt);
-        _entities.AddRange(_spawnEntities);
-        _spawnEntities.Clear();
+        _entities.Update(dt);
         Tweener.Update(dt);
         _tiledMapRenderer.Update(gameTime);
 
@@ -119,25 +121,13 @@ public class MainScreen: GameScreen
         if (Player.Position.X > _tiledMap.WidthInPixels - 10 - CAMERA_BORDER_BUFFER) 
             Player.Position = new Vector2(_tiledMap.WidthInPixels - 10  - CAMERA_BORDER_BUFFER, Player.Position.Y);
         
-
-        var entitiesForRemove = _entities.Where(x => !x.IsAlive).ToList();
-        foreach (var entity in entitiesForRemove)
-        {
-            if (entity is Creature creature)
-                Player.Body.AddExpirience(creature.Body.Level);
-            if (entity is Player)
-                ScreenManager.LoadScreen(new MessageScreen("К сожалению, вы не справились с испытанием. Рекомендуем попробовать снова.", this));
-        }
-
-        _entities.RemoveAll(x => !x.IsAlive);
     }
 
 
     public override void Draw(GameTime gameTime)
     {
         (_tiledMapRenderer as TiledMapRenderer).Draw(Game.Camera.GetViewMatrix()); 
-        foreach (var entity in _entities)
-            entity.Draw(Game.SpriteBatch);
+        _entities.Draw(Game.SpriteBatch);
         
         _hp.Draw(Game.InterfaceSpriteBatch, new (0, 0), 
             (float)Player.HP / Player.MaxHP);
@@ -161,12 +151,6 @@ public class MainScreen: GameScreen
                         action.Invoke(creature);
     }
 
-    private readonly List<IEntity> _spawnEntities = new();
-
-    public void Spawn(IEntity entity)
-    {
-        _spawnEntities.Add(entity);
-    }
 
     public int GetSpawnPoint()
     {
@@ -179,5 +163,10 @@ public class MainScreen: GameScreen
         if (x < 0)
             x += 2 * Game.Camera.BoundingRectangle.Width;
         return (int)x;
+    }
+
+    public void Spawn(IEntity entity)
+    {
+        _entities.Add(entity);
     }
 }

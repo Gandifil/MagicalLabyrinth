@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using MagicalLabyrinth.Entities;
 using MagicalLabyrinth.Entities.Utils;
 
@@ -24,7 +25,7 @@ public class Spawner
             if (((Creature)MainGame.Screen.Player).Body.Level > 5) Spawn();
         }
 
-        if (MainGame.Screen.Entities.Count == 1)
+        if (MainGame.Screen.Entities.Count() == 1)
         {
             Spawn();
             Spawn();
