@@ -50,7 +50,7 @@ public class Golem: Creature
         _sprite.Play(name, () =>
         {
             _strikeSoundEffect.Play();
-            MainGame.Screen.ProcessDamageZone(false, creature => creature.Hurt(30), GetMeleeDamageZone());
+            MainGame.Screen.ProcessDamageZone(false, creature => creature.Body.Hurt(30), GetMeleeDamageZone());
             _isStriking = false;
         });
         _isStriking = true;

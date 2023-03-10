@@ -2,6 +2,7 @@
 using System.Numerics;
 using MagicalLabyrinth.Abilities;
 using MagicalLabyrinth.Entities.Utils;
+using MagicalLabyrinth.Mechanics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -19,42 +20,13 @@ namespace MagicalLabyrinth.Entities;
 
 public class Player: Creature
 {
-    public int Expirience { get; private set; } = 0;
-
-    public int MaxExpirience { get; private set; } = 8;
-
-    public int SkillPoints { get; private set; } = 1;
-
-    public AbilityPack AbilityPack { get; private set; } = new AbilityPack();
-
-
-    public void AddExpirience(int value)
-    {
-        Expirience += value;
-        while (Expirience >= MaxExpirience) LevelUp();
-    }
-
-    public void BuyAbility(AbilityData abilityData)
-    {
-        if (SkillPoints > 0 && !AbilityPack.Contain(abilityData.Name))
-        {
-            SkillPoints--;
-            AbilityPack.AddAbility(abilityData);
-        }
-    }
-
-    private void LevelUp()
-    {
-        Expirience -= MaxExpirience;
-        MaxExpirience *= 2;
-        SkillPoints++;
-        Level++;
-    }
-
+    public readonly EvolvingBody Body;
     public Player(float X): base("player", X)
     {
         MainGame.Instance.KeyboardListener.KeyPressed += OnKeyPressed;
         _strike = new Strike(this, _sprite, OnBaseAttackCollised);
+        Body = new EvolvingBody(_creatureData);
+        base.Body = Body;
     }
     
     public override void Update(float dt)
@@ -78,7 +50,7 @@ public class Player: Creature
         }
         
         if (keyboardState.IsKeyDown(Keys.Q))
-            if (AbilityPack.HasTag("knifeFlow"))
+            if (Body.AbilityPack.HasTag("knifeFlow"))
                 ThrowKnife();
 
         if (_ySpeed == 0f && !_strike.IsStriking) 
@@ -95,7 +67,7 @@ public class Player: Creature
             }
         }
 
-        if (AbilityPack.HasTag("regeneration"))
+        if (Body.AbilityPack.HasTag("regeneration"))
         {
             if (_regenerationTimer.IsCompleted)
             {
@@ -105,7 +77,7 @@ public class Player: Creature
             _regenerationTimer.Update(dt);
         }
 
-        if (MaxHP == _creatureData.Hp && AbilityPack.HasTag("moreHealth"))
+        if (MaxHP == _creatureData.Hp && Body.AbilityPack.HasTag("moreHealth"))
         {
             MaxHP *= 2;
             HP = Math.Min(MaxHP, HP + _creatureData.Hp);
@@ -129,10 +101,10 @@ public class Player: Creature
         }
         
         if (e.Key == Keys.Q)
-            if (!AbilityPack.HasTag("knifeFlow"))
+            if (!Body.AbilityPack.HasTag("knifeFlow"))
                 ThrowKnife();
 
-        if (AbilityPack.HasTag("shift"))
+        if (Body.AbilityPack.HasTag("shift"))
         if (e.Key == Keys.LeftShift)
         {
             _strike.Cancel();
@@ -162,9 +134,9 @@ public class Player: Creature
         if (!_timer.IsCompleted) return;
 
         var source = Position + _sprite.Origin / 2;
-        var action = (Creature c) => c.Hurt((int)((1 + AbilityPack.SecondAttackPower)*_creatureData.SecondAttack));
+        var action = (Creature c) => c.Body.Hurt((int)((1 + Body.AbilityPack.SecondAttackPower)*_creatureData.SecondAttack));
 
-        if (AbilityPack.HasTag("knifeMultiple"))
+        if (Body.AbilityPack.HasTag("knifeMultiple"))
         {
             MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, -70f), action)
             {
@@ -182,11 +154,11 @@ public class Player: Creature
         });
 
         _throwSoundEffect.Play(.2f, 1f, 1f);
-        _timer.Reset(_creatureData.SecondCooldown*(1-AbilityPack.SecondCooldown));
+        _timer.Reset(_creatureData.SecondCooldown*(1-Body.AbilityPack.SecondCooldown));
     }
 
     private void OnBaseAttackCollised(Creature creature)
     {
-        creature.Hurt((int)((1 + AbilityPack.BaseAttackPower)*_creatureData.BaseAttack));
+        creature.Body.Hurt((int)((1 + Body.AbilityPack.BaseAttackPower)*_creatureData.BaseAttack));
     }
 }

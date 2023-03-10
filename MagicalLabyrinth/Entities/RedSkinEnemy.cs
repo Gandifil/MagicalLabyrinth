@@ -48,7 +48,7 @@ public class RedSkinEnemy:Creature
     {
         _sprite.Play(name + new Random().Next(1,4), () =>
         {
-            MainGame.Screen.ProcessDamageZone(false, creature => creature.Hurt(10), GetMeleeDamageZone());
+            MainGame.Screen.ProcessDamageZone(false, creature => creature.Body.Hurt(10), GetMeleeDamageZone());
             _isStriking = false;
         });
         _isStriking = true;

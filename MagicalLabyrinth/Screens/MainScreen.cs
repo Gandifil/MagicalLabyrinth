@@ -124,7 +124,7 @@ public class MainScreen: GameScreen
         foreach (var entity in entitiesForRemove)
         {
             if (entity is Creature creature)
-                Player.AddExpirience(creature.Level);
+                Player.Body.AddExpirience(creature.Body.Level);
             if (entity is Player)
                 ScreenManager.LoadScreen(new MessageScreen("К сожалению, вы не справились с испытанием. Рекомендуем попробовать снова.", this));
         }
@@ -146,8 +146,8 @@ public class MainScreen: GameScreen
             , Color.Black, 0f, new Vector2(), 3f, SpriteEffects.None, 0f);
 
         _exp.Draw(Game.InterfaceSpriteBatch, new (0, _hp.Height + _hp.BorderWidth * 2), 
-            (float)Player.Expirience / Player.MaxExpirience);
-        Game.InterfaceSpriteBatch.DrawString(_font, $"Lvl: {Player.Level}", 
+            (float)Player.Body.Expirience / Player.Body.MaxExpirience);
+        Game.InterfaceSpriteBatch.DrawString(_font, $"Lvl: {Player.Body.Level}", 
             new Vector2(_exp.Width + 10, _hp.Height + _hp.BorderWidth * 2)
             , Color.Black, 0f, new Vector2(), 3f, SpriteEffects.None, 0f);
     }

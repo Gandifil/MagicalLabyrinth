@@ -29,7 +29,7 @@ public class AbilityIcon: Image
         CheckState();
         OnPressed += _ =>
         {
-            MainGame.Screen.Player.BuyAbility(data);
+            MainGame.Screen.Player.Body.BuyAbility(data);
             CheckState();
         };
     }
@@ -45,7 +45,7 @@ public class AbilityIcon: Image
 
     private void CheckState()
     {
-        Color = MainGame.Screen.Player.AbilityPack.Contain(_abilityData.Name)
+        Color = MainGame.Screen.Player.Body.AbilityPack.Contain(_abilityData.Name)
             ? new StyleProp<Color>(Microsoft.Xna.Framework.Color.White)
             : new StyleProp<Color>(Microsoft.Xna.Framework.Color.Gray);
     }

@@ -81,7 +81,7 @@ public class Necromancer: Creature
         {
             var shift = (MainGame.Screen.Player.Position - Position).NormalizedCopy() * 180;
             MainGame.Screen.Spawn(
-                new Projectile(this, shift, creature => { creature.Hurt(10);}, "fireball")
+                new Projectile(this, shift, creature => { creature.Body.Hurt(10);}, "fireball")
                 {
                     Position = Position,
                 });

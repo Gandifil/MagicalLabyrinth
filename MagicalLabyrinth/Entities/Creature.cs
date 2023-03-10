@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MagicalLabyrinth.Mechanics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.Serialization;
@@ -13,18 +14,29 @@ public abstract class Creature: Entity
 {
     protected readonly CreatureData _creatureData;
 
+    public Body Body { get; protected set; }  
+
     protected Creature(string modelName, float X)
     {
         _creatureData = MainGame.Instance.Content
             .Load<CreatureData>("creatures/" + modelName + ".json", new JsonContentLoader());
+        Body = new Body(_creatureData);
+        Body.OnDied += Die;
+        Body.OnDamaged += OnDamaged;
         SetupAnimatedSprite("creatures/" + _creatureData.SpriteSheetName);
         Position = new Vector2(X, CURRENT_FLOOR);
-
-        MaxHP = _creatureData.Hp;
-        HP = _creatureData.Hp;
-        Level = _creatureData.Level;
     }
 
+    private void OnDamaged()
+    {
+        TweenerColor = 1;
+        MainGame.Screen.Tweener
+            .TweenTo(
+                target: this,
+                expression: sprite => sprite.TweenerColor,
+                toValue: 0f, duration: .5f, delay: 0f)
+            .Easing(EasingFunctions.BounceOut);
+    }
 
     public int HP { get; protected set; }
 
@@ -34,19 +46,6 @@ public abstract class Creature: Entity
     
     public float TweenerColor { get; set; } = 0f;
 
-    public void Hurt(int damage)
-    {
-        HP -= damage;
-        if (HP <= 0)
-            Die();
-        TweenerColor = 1;
-        MainGame.Screen.Tweener
-           .TweenTo(
-                target: this,
-                expression: sprite => sprite.TweenerColor,
-                toValue: 0f, duration: .5f, delay: 0f)
-            .Easing(EasingFunctions.BounceOut);
-    }
 
     protected int _isMoving = 0;
     
@@ -57,7 +56,6 @@ public abstract class Creature: Entity
         _position.X += _isMoving * _direction * dt * _creatureData.Speed;
     }
 
-    public int Level { get; set; } = 1;
     
     public override void Draw(SpriteBatch spriteBatch)
     {

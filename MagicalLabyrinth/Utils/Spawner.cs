@@ -21,7 +21,7 @@ public class Spawner
         if (_timer.IsCompleted)
         {
             Spawn();
-            if (MainGame.Screen.Player.Level > 5) Spawn();
+            if (((Creature)MainGame.Screen.Player).Body.Level > 5) Spawn();
         }
 
         if (MainGame.Screen.Entities.Count == 1)
@@ -38,11 +38,11 @@ public class Spawner
         var index = Random.Shared.Next(0, 10);
         
         IEntity newEntity = null;
-        if (MainGame.Screen.Player.Level > 2 && index is >5 and <8 ) newEntity = new Golem(screen, screen.GetSpawnPoint());
-        if (MainGame.Screen.Player.Level > 3 && index is >7 and <10 ) newEntity = new Necromancer(screen, screen.GetSpawnPoint());
+        if (((Creature)MainGame.Screen.Player).Body.Level > 2 && index is >5 and <8 ) newEntity = new Golem(screen, screen.GetSpawnPoint());
+        if (((Creature)MainGame.Screen.Player).Body.Level > 3 && index is >7 and <10 ) newEntity = new Necromancer(screen, screen.GetSpawnPoint());
         newEntity ??= new RedSkinEnemy(screen, screen.GetSpawnPoint());
         
         screen.Spawn(newEntity);
-        _timer.Reset(screen.Player.Level > 7 ? COOLDOWN / 2: COOLDOWN);
+        _timer.Reset(((Creature)screen.Player).Body.Level > 7 ? COOLDOWN / 2: COOLDOWN);
     }
 }

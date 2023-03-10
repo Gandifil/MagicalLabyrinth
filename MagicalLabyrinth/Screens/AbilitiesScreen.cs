@@ -29,7 +29,7 @@ public class AbilitiesScreen: BackScreenBase
             Padding = new StyleProp<Padding>(new Padding(-10))
         };
         panel.AddChild(new Paragraph(Anchor.TopCenter, 1, 
-            _ => "Очки способностей: " + MainGame.Screen.Player.SkillPoints, true));
+            _ => "Очки способностей: " + MainGame.Screen.Player.Body.SkillPoints, true));
         
         panel.AddChild(new VerticalSpace(10));
         
