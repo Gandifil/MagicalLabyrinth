@@ -1,7 +1,12 @@
 ﻿{
   "spriteSheetName": "necromancer.sf",
-  "speed": 150,
-  "level": 6,
-  "hp": 200,
-  "jump": 0
+  "attributes": {
+    "speed": 150,
+    "jump": 0,
+    "mainAttack": 10,
+    "secondaryAttack": 10,
+    "secondaryCooldown": 1,
+    "hp": 200
+  },
+  "level": 6
 }

@@ -11,14 +11,16 @@ public class Body
     {
         СreatureData = сreatureData;
         
-        MaxHP = new ObservedParameter<int>(сreatureData.Hp);
-        HP = new ObservedParameter<int>(сreatureData.Hp);
-        Level = new ObservedParameter<int>(сreatureData.Level);
+        MaxHP = new ObservedParameter<int>((int)сreatureData.Attributes[AttributeType.Hp]);
+        HP = new ObservedParameter<int>(MaxHP);
+        Level = сreatureData.Level;
     }
     
     public readonly ObservedParameter<int> HP;
     
     public readonly ObservedParameter<int> MaxHP;
+
+    public float this[AttributeType index] => СreatureData.Attributes[index];
 
     public int Level { get; protected set; } = 1;
     

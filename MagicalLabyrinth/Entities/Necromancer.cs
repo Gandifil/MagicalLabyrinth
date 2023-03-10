@@ -4,7 +4,6 @@ using MagicalLabyrinth.Mechanics;
 using MagicalLabyrinth.Screens;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 
 namespace MagicalLabyrinth.Entities;
@@ -53,7 +52,7 @@ public class Necromancer: Creature
 
             var dy = _target.Value.Y - Position.Y;
             if (Math.Abs(dy) > 3f)
-                _position.Y += Math.Sign(dy) * dt * _creatureData.Speed / 2;
+                _position.Y += Math.Sign(dy) * dt * Body[AttributeType.Speed] / 2;
 
             if ((_target.Value - Position).Length() < 30f)
                 _target = null;

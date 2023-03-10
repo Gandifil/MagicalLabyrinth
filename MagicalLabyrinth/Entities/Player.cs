@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Numerics;
-using MagicalLabyrinth.Abilities;
 using MagicalLabyrinth.Entities.Utils;
 using MagicalLabyrinth.Mechanics;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using MonoGame.Extended;
-using MonoGame.Extended.Serialization;
-using MonoGame.Extended.Content;
 using MonoGame.Extended.Input.InputListeners;
-using MonoGame.Extended.Sprites;
-using AnimatedSprite = MagicalLabyrinth.Sprites.AnimatedSprite;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace MagicalLabyrinth.Entities;
@@ -76,12 +67,13 @@ public class Player: Creature
             }
             _regenerationTimer.Update(dt);
         }
+        // TODO: impls ability not this way
+        // if (Body.MaxHP == _creatureData.Hp && Body.AbilityPack.HasTag("moreHealth"))
+        // {
+        //     Body.MaxHP.Value *= 2;
+        //     Body.HP.Value = Math.Min(Body.MaxHP, Body.HP + _creatureData.Hp);
+        // }
 
-        if (Body.MaxHP == _creatureData.Hp && Body.AbilityPack.HasTag("moreHealth"))
-        {
-            Body.MaxHP.Value *= 2;
-            Body.HP.Value = Math.Min(Body.MaxHP, Body.HP + _creatureData.Hp);
-        }
         
         _strike.Update(dt);
         _timer.Update(dt);
@@ -135,8 +127,7 @@ public class Player: Creature
 
         var source = Position + _sprite.Origin / 2;
 
-        var damage = (int)((1 + Body.AbilityPack.SecondAttackPower) * _creatureData.SecondAttack);
-        var action = (Creature c) => c.Body.Hurt(new Impact(Body, damage));
+        var action = (Creature c) => c.Body.Hurt(new Impact(Body, (int)Body[AttributeType.SecondaryAttack]));
 
         if (Body.AbilityPack.HasTag("knifeMultiple"))
         {
@@ -156,12 +147,11 @@ public class Player: Creature
         });
 
         _throwSoundEffect.Play(.2f, 1f, 1f);
-        _timer.Reset(_creatureData.SecondCooldown*(1-Body.AbilityPack.SecondCooldown));
+        _timer.Reset(Body[AttributeType.SecondaryCooldown]);
     }
 
     private void OnBaseAttackCollised(Creature creature)
     {
-        var damage = (int)((1 + Body.AbilityPack.BaseAttackPower) * _creatureData.BaseAttack);
-        creature.Body.Hurt(new Impact(Body, damage));
+        creature.Body.Hurt(new Impact(Body, (int)Body[AttributeType.MainAttack]));
     }
 }

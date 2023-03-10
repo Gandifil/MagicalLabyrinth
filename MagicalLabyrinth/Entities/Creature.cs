@@ -3,10 +3,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.Serialization;
-using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Content;
 using MonoGame.Extended.Tweening;
-using AnimatedSprite = MagicalLabyrinth.Sprites.AnimatedSprite;
 
 namespace MagicalLabyrinth.Entities;
 
@@ -49,7 +47,7 @@ public abstract class Creature: Entity
     {
         base.Update(dt);
         
-        _position.X += _isMoving * _direction * dt * _creatureData.Speed;
+        _position.X += _isMoving * _direction * dt * Body[AttributeType.Speed];
     }
 
     

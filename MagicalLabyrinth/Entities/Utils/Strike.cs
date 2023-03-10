@@ -1,8 +1,6 @@
 ﻿using System;
 using MagicalLabyrinth.Sprites;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using MonoGame.Extended;
 
 namespace MagicalLabyrinth.Entities.Utils;
 

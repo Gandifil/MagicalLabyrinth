@@ -1,7 +1,9 @@
 ﻿{
   "spriteSheetName": "adventurer-Sheet.sf",
-  "speed": 64,
-  "jump": 0,
-  "level": 2,
-  "hp": 100
+  "attributes": {
+    "speed": 64,
+    "jump": 0,
+    "hp": 100
+  },
+  "level": 2
 }

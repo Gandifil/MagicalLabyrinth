@@ -1,10 +1,12 @@
 ﻿{
   "spriteSheetName": "adventurer.sf",
-  "speed": 128,
-  "jump": 0,
-  "baseAttack": 10,
-  "secondAttack": 10,
-  "secondCooldown": 1,
-  "level": 1,
-  "hp": 200
+  "attributes": {
+    "speed": 128,
+    "jump": 0,
+    "mainAttack": 10,
+    "secondaryAttack": 10,
+    "secondaryCooldown": 1,
+    "hp": 200
+  },
+  "level": 1
 }

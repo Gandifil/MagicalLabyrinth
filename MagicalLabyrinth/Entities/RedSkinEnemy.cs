@@ -1,9 +1,7 @@
 ﻿using System;
 using MagicalLabyrinth.Mechanics;
 using MagicalLabyrinth.Screens;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace MagicalLabyrinth.Entities;
 

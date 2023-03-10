@@ -1,9 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
-using MonoGame.Extended.Serialization;
-using MonoGame.Extended.Sprites;
-using MonoGame.Extended.Content;
 
 namespace MagicalLabyrinth.Entities;
 

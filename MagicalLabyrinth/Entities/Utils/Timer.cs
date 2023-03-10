@@ -1,6 +1,4 @@
-﻿using MLEM.Animations;
-
-namespace MagicalLabyrinth.Entities.Utils;
+﻿namespace MagicalLabyrinth.Entities.Utils;
 
 public class Timer: IUpdate
 {
