@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MagicalLabyrinth.Mechanics.Abilities;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MLEM.Textures;
 using MLEM.Ui;
@@ -37,15 +38,12 @@ public class AbilityIcon: Image
     private static TextureRegion getTexture(AbilityData abilityData)
     {
         var texture = MainGame.Instance.Content.Load<Texture2D>("abilities/"+abilityData.SpriteSheet);
-        //var csize = new Point(32, 32);
-        //var pos = new Point(abilityData.SpriteX, abilityData.SpriteY);
         return new TextureRegion2D(texture).ToMlem();
-        
     }
 
     private void CheckState()
     {
-        Color = MainGame.Screen.Player.Body.AbilityPack.Contain(_abilityData.Name)
+        Color = MainGame.Screen.Player.Body.Abilities[_abilityData.Name]
             ? new StyleProp<Color>(Microsoft.Xna.Framework.Color.White)
             : new StyleProp<Color>(Microsoft.Xna.Framework.Color.Gray);
     }

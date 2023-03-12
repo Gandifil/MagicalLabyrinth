@@ -3,61 +3,62 @@
     "name": "baseAttackPower1",
     "spriteSheet": "icon01",
     "Description": "Увеличивает силу ударов на 40%",
-    "BaseAttackPower": 0.4
+    "factor": 0.4,
+    "attributeType": "MainAttack"
   },
   {
     "name": "baseAttackPower2",
     "spriteSheet": "icon18",
     "Description": "Увеличивает силу ударов на 40%",
-    "BaseAttackPower": 0.4
+    "factor": 0.4,
+    "attributeType": "MainAttack"
   },
   {
     "name": "baseAttackPower09",
     "spriteSheet": "icon01",
     "Description": "Увеличивает силу ударов на 40%",
-    "BaseAttackPower": 0.4
+    "factor": 0.4,
+    "attributeType": "MainAttack"
   },
   {
     "name": "baseAttackSpeed",
     "spriteSheet": "icon02",
     "Description": "Увеличивает скорость ударов на 40%",
-    "BaseAttackSpeed": 0.4
+    "factor": -0.4,
+    "attributeType": "MainSpeed"
   },
   {
     "name": "knifeSpeed",
     "spriteSheet": "icon03",
     "Description": "Увеличивает скорость восстановления ножей на 50%.",
-    "SecondCooldown": 0.5
+    "factor": -0.5,
+    "attributeType": "SecondaryCooldown"
   },
   {
     "name": "knifeFlow",
     "spriteSheet": "icon04",
     "Description": "Позволяет выпускать ножи потоком, удерживая клавишу Q. Увеличивает скорость восстановления ножей на 30%.",
-    "SecondCooldown": 0.3,
-    "tags": "knifeFlow"
+    "SecondCooldown": -0.3,
+    "attributeType": "SecondaryCooldown"
   },
   {
     "name": "knifeMultiple",
     "spriteSheet": "icon05",
-    "Description": "Вместо одного ножа выбрасывается 3 веером.",
-    "tags": "knifeMultiple"
+    "Description": "Вместо одного ножа выбрасывается 3 веером."
   },
   {
     "name": "moreHealth",
     "spriteSheet": "icon25",
-    "Description": "Увеличивает здоровье в 2 раза. Частично восстанавливает ранения",
-    "tags": "moreHealth"
+    "Description": "Увеличивает здоровье в 2 раза. Частично восстанавливает ранения"
   },
   {
     "name": "regeneration",
     "spriteSheet": "icon17",
     "Description": "Раз в 5 секунд восстанавливает 10 ед. здоровья",
-    "tags": "regeneration"
   },
   {
     "name": "shift",
     "spriteSheet": "icon29",
-    "Description": "Нажимая левый Shift и кнопки вправо/влево, вы способны переместиться с огромной скоростью и избежать повреждений.",
-    "tags": "shift"
+    "Description": "Нажимая левый Shift и кнопки вправо/влево, вы способны переместиться с огромной скоростью и избежать повреждений."
   }
 ]

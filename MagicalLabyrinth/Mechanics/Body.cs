@@ -20,7 +20,7 @@ public class Body
     
     public readonly ObservedParameter<int> MaxHP;
 
-    public float this[AttributeType index] => СreatureData.Attributes[index];
+    public virtual float this[AttributeType index] => СreatureData.Attributes[index];
 
     public int Level { get; protected set; } = 1;
     

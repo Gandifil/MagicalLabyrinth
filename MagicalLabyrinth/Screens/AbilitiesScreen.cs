@@ -1,4 +1,5 @@
 ﻿using MagicalLabyrinth.Abilities;
+using MagicalLabyrinth.Mechanics.Abilities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using MLEM.Misc;

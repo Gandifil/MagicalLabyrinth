@@ -3,6 +3,7 @@
   "attributes": {
     "speed": 128,
     "jump": 0,
+    "mainSpeed": 1,
     "mainAttack": 10,
     "secondaryAttack": 10,
     "secondaryCooldown": 1,

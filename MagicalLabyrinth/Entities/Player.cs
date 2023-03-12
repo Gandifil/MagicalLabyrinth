@@ -41,7 +41,7 @@ public class Player: Creature
         }
         
         if (keyboardState.IsKeyDown(Keys.Q))
-            if (Body.AbilityPack.HasTag("knifeFlow"))
+            if (Body.Abilities["knifeFlow"])
                 ThrowKnife();
 
         if (_ySpeed == 0f && !_strike.IsStriking) 
@@ -58,7 +58,7 @@ public class Player: Creature
             }
         }
 
-        if (Body.AbilityPack.HasTag("regeneration"))
+        if (Body.Abilities["regeneration"])
         {
             if (_regenerationTimer.IsCompleted)
             {
@@ -93,10 +93,10 @@ public class Player: Creature
         }
         
         if (e.Key == Keys.Q)
-            if (!Body.AbilityPack.HasTag("knifeFlow"))
+            if (!Body.Abilities["knifeFlow"])
                 ThrowKnife();
 
-        if (Body.AbilityPack.HasTag("shift"))
+        if (Body.Abilities["shift"])
         if (e.Key == Keys.LeftShift)
         {
             _strike.Cancel();
@@ -129,7 +129,7 @@ public class Player: Creature
 
         var action = (Creature c) => c.Body.Hurt(new Impact(Body, (int)Body[AttributeType.SecondaryAttack]));
 
-        if (Body.AbilityPack.HasTag("knifeMultiple"))
+        if (Body.Abilities["knifeMultiple"])
         {
             MainGame.Screen.Spawn(new Projectile(this, new Vector2(_direction * 300f, -70f), action)
             {

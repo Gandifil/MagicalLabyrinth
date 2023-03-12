@@ -1,5 +1,6 @@
 ﻿using MagicalLabyrinth.Abilities;
 using MagicalLabyrinth.Entities;
+using MagicalLabyrinth.Mechanics.Abilities;
 
 namespace MagicalLabyrinth.Mechanics;
 
@@ -11,7 +12,9 @@ public class EvolvingBody: Body
 
     public int SkillPoints { get; private set; } = 1;
     
-    public AbilityPack AbilityPack { get; private set; } = new AbilityPack();
+    public virtual float this[AttributeType index] => (1 + Abilities.Factors[index])*СreatureData.Attributes[index];
+
+    public AbilityCollection Abilities { get; private set; } = new ();
 
     public EvolvingBody(CreatureData creatureData): base(creatureData)
     {
@@ -27,10 +30,10 @@ public class EvolvingBody: Body
 
     public void BuyAbility(AbilityData abilityData)
     {
-        if (SkillPoints > 0 && !AbilityPack.Contain(abilityData.Name))
+        if (SkillPoints > 0 && !Abilities[abilityData.Name])
         {
             SkillPoints--;
-            AbilityPack.AddAbility(abilityData);
+            Abilities.Add(abilityData);
         }
     }
 

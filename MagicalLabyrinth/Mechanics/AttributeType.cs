@@ -8,6 +8,7 @@ public enum AttributeType
     Speed,
     Jump,
     MainAttack,
+    MainSpeed,
     SecondaryAttack,
     SecondaryCooldown
 }

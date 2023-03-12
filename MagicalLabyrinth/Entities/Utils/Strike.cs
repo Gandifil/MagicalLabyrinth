@@ -1,4 +1,5 @@
 ﻿using System;
+using MagicalLabyrinth.Mechanics;
 using MagicalLabyrinth.Sprites;
 using Microsoft.Xna.Framework.Audio;
 
@@ -43,7 +44,7 @@ public class Strike: IUpdate
 
         name ??= _sprite.CurrentAnimationName == "strike2" ? "strike3" : "strike2";
         
-        _sprite.Play(name, () => IsStriking = false, 1 - _player.Body.AbilityPack.BaseAttackSpeed);
+        _sprite.Play(name, () => IsStriking = false, 1 - _player.Body[AttributeType.MainSpeed]);
         _strikeSoundEffect.Play();
     }
 
