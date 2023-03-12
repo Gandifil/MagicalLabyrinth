@@ -50,16 +50,6 @@ public class Player: Creature
         if (_shift.Y == 0f && !_strike.IsStriking) 
             _sprite.Play(animation);
         _shift.Y += dt * 300.8f;
-        // if (_shift.Y != 0f)
-        // {
-        //     //_position.Y += dt * _shift.Y;
-        //     
-        //     // if (_position.Y > CURRENT_FLOOR)
-        //     // {
-        //     //     _position.Y = CURRENT_FLOOR;
-        //     //     _shift.Y = 0f;
-        //     // }
-        // }
 
         if (Body.Abilities["regeneration"])
         {
@@ -80,9 +70,6 @@ public class Player: Creature
         
         _strike.Update(dt);
         _timer.Update(dt);
-        
-        _shift.X = _isMoving * _direction * Body[AttributeType.Speed];
-        //_collisions.CheckShift(GetMeleeDamageZone(), dt, ref _shift);
         base.Update(dt);
     }
 

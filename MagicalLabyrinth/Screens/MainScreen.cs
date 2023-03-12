@@ -51,12 +51,12 @@ public class MainScreen: GameScreen
         base.Initialize();
         
         _tiledMap = Content.Load<TiledMap>("maps/StartLocation");
+        LoadObjects();
         _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
         
         Player = new Player(250);
         _entities.Add(Player);
         Player.Body.OnDied += PlayerOnDied;
-        _entities.Add(new Golem(this, 50));
         
         _hp = new(Game.SpriteBatch)
         {
@@ -74,6 +74,23 @@ public class MainScreen: GameScreen
             LowColor = Color.Cyan,
             HighColor = Color.Cyan,
         };
+    }
+
+    private void LoadObjects()
+    {
+        foreach (var objectLayer in _tiledMap.ObjectLayers)
+        foreach (var obj in objectLayer.Objects)
+        {
+            var rect = new RectangleF(obj.Position, obj.Size);
+            IEntity entity = null;
+            if (obj.Name.StartsWith("redSkinEnemy"))
+                entity = new RedSkinEnemy(this, (int)rect.Center.X);
+            if (obj.Name.StartsWith("golem"))
+                entity = new Golem(this, (int)rect.Center.X);
+            
+            if (entity != null)
+                _entities.Add(entity);
+        }
     }
 
     public override void LoadContent()

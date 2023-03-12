@@ -45,9 +45,8 @@ public abstract class Creature: Entity
     
     public override void Update(float dt)
     {
+        _shift.X = _isMoving * _direction * Body[AttributeType.Speed];
         base.Update(dt);
-        
-        //_position.X += _isMoving * _direction * dt * Body[AttributeType.Speed];
     }
 
     
