@@ -29,15 +29,12 @@ public class MainScreen: GameScreen
     private TiledMapRenderer _tiledMapRenderer;
     private readonly EntitiesCollection _entities = new();
 
+    public TiledMap TiledMap => _tiledMap;
     public Player Player { get; private set; }
     public Tweener Tweener { get; private set; } = new Tweener();
 
     public MainScreen(MainGame game) : base(game)
     {
-        Player = new Player(250);
-        _entities.Add(Player);
-        Player.Body.OnDied += PlayerOnDied;
-        _entities.Add(new Golem(this, 50));
     }
 
     private void PlayerOnDied()
@@ -55,6 +52,11 @@ public class MainScreen: GameScreen
         
         _tiledMap = Content.Load<TiledMap>("maps/StartLocation");
         _tiledMapRenderer = new TiledMapRenderer(GraphicsDevice, _tiledMap);
+        
+        Player = new Player(250);
+        _entities.Add(Player);
+        Player.Body.OnDied += PlayerOnDied;
+        _entities.Add(new Golem(this, 50));
         
         _hp = new(Game.SpriteBatch)
         {

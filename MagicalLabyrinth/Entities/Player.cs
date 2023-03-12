@@ -12,8 +12,11 @@ namespace MagicalLabyrinth.Entities;
 public class Player: Creature
 {
     public readonly EvolvingBody Body;
+    //private readonly MoveCollisions _collisions;
+    
     public Player(float X): base("player", X)
     {
+        _collisions = new MoveCollisions();
         MainGame.Instance.KeyboardListener.KeyPressed += OnKeyPressed;
         _strike = new Strike(this, _sprite, OnBaseAttackCollised);
         Body = new EvolvingBody(_creatureData);
@@ -44,19 +47,19 @@ public class Player: Creature
             if (Body.Abilities["knifeFlow"])
                 ThrowKnife();
 
-        if (_ySpeed == 0f && !_strike.IsStriking) 
+        if (_shift.Y == 0f && !_strike.IsStriking) 
             _sprite.Play(animation);
-
-        if (_ySpeed != 0f)
-        {
-            _position.Y += dt * _ySpeed;
-            _ySpeed += dt * 200.8f;
-            if (_position.Y > CURRENT_FLOOR)
-            {
-                _position.Y = CURRENT_FLOOR;
-                _ySpeed = 0f;
-            }
-        }
+        _shift.Y += dt * 300.8f;
+        // if (_shift.Y != 0f)
+        // {
+        //     //_position.Y += dt * _shift.Y;
+        //     
+        //     // if (_position.Y > CURRENT_FLOOR)
+        //     // {
+        //     //     _position.Y = CURRENT_FLOOR;
+        //     //     _shift.Y = 0f;
+        //     // }
+        // }
 
         if (Body.Abilities["regeneration"])
         {
@@ -77,17 +80,19 @@ public class Player: Creature
         
         _strike.Update(dt);
         _timer.Update(dt);
+        
+        _shift.X = _isMoving * _direction * Body[AttributeType.Speed];
+        //_collisions.CheckShift(GetMeleeDamageZone(), dt, ref _shift);
         base.Update(dt);
     }
 
-    private float _ySpeed = 0f;
     private readonly Strike _strike;
 
     private void OnKeyPressed(object sender, KeyboardEventArgs e)
     {
-        if (e.Key == Keys.Space && _ySpeed == 0f)
+        if (e.Key == Keys.Space && _shift.Y == 0f)
         {
-            _ySpeed = -200f;
+            _shift.Y = -200f;
             _strike.Cancel();
             _sprite.Play("jump");
         }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using MagicalLabyrinth.Entities.Utils;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGame.Extended;
 using MonoGame.Extended.Serialization;
@@ -11,9 +12,14 @@ namespace MagicalLabyrinth.Entities;
 public abstract class Entity: IEntity
 {
     protected AnimatedSprite _sprite;
+    protected Vector2 _shift;
+    protected MoveCollisions _collisions;
 
     public virtual void Update(float dt)
     {
+        var shift = dt * _shift;
+        _collisions?.CheckShift(GetBox(), ref shift, ref _shift);
+        Position += shift;
         _sprite.Update(dt);
     }
 
@@ -61,5 +67,16 @@ public abstract class Entity: IEntity
     {
         _sprite.Effect = SpriteEffects.None;
         _direction = 1;
+    }
+
+    public RectangleF GetMeleeDamageZone()
+    {
+        return new RectangleF(Position.X-(_direction == -1 ? _sprite.TextureRegion.Width : 0), Position.Y, 
+            _sprite.TextureRegion.Width, _sprite.TextureRegion.Height);
+    }
+
+    public RectangleF GetBox()
+    {
+        return _sprite.GetBoundingRectangle(Position, 0f, Vector2.One);
     }
 }

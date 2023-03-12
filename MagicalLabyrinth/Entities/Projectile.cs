@@ -7,7 +7,6 @@ namespace MagicalLabyrinth.Entities;
 public class Projectile: Entity
 {
     private readonly IEntity _owner;
-    private readonly Vector2 _shift;
     private readonly Action<Creature> _action;
 
     public float MaxRadius { get; set; } = 500;
@@ -36,10 +35,6 @@ public class Projectile: Entity
 
     public override void Update(float dt)
     {
-        base.Update(dt);
-
-        Position += dt * _shift;
-
         CheckCollisions();
 
         if (Position.Y > Y_FLOOR_LEVEL)
@@ -47,5 +42,7 @@ public class Projectile: Entity
         
         if ((_owner.Position - Position).Length() > MaxRadius)
             Die();
+        
+        base.Update(dt);
     }
 }

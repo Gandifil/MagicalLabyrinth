@@ -47,7 +47,7 @@ public abstract class Creature: Entity
     {
         base.Update(dt);
         
-        _position.X += _isMoving * _direction * dt * Body[AttributeType.Speed];
+        //_position.X += _isMoving * _direction * dt * Body[AttributeType.Speed];
     }
 
     
@@ -56,7 +56,7 @@ public abstract class Creature: Entity
         _sprite.Color = TweenerColor < .2f ? Color.White : Color.Red;
         base.Draw(spriteBatch);
     }
-
+    
     public RectangleF GetMeleeDamageZone()
     {
         return new RectangleF(Position.X-(_direction == -1 ? _sprite.TextureRegion.Width : 0), Position.Y, 
