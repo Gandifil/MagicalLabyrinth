@@ -77,6 +77,15 @@ public class Player: Creature
 
     private void OnKeyPressed(object sender, KeyboardEventArgs e)
     {
+        if (e.Key == Keys.E)
+        {
+            foreach (var entity in MainGame.Screen.Entities)
+                if (entity is Door door)
+                    if ((Position - door.Position).Length() < 200)
+                        door.Use();
+        }
+            
+            
         if (e.Key == Keys.Space && _shift.Y == 0f)
         {
             _shift.Y = -200f;

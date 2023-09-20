@@ -11,6 +11,7 @@ using MonoGame.Extended;
 using MonoGame.Extended.Screens;
 using MonoGame.Extended.Serialization;
 using MonoGame.Extended.Content;
+using MonoGame.Extended.Input;
 using MonoGame.Extended.Input.InputListeners;
 using MonoGame.Extended.Sprites;
 using MonoGame.Extended.Tiled;
@@ -26,6 +27,7 @@ public class MainScreen: GameScreen
     public IEnumerable<IEntity> Entities => _entities;
 
     TiledMap _tiledMap;
+    MouseButton
     private TiledMapRenderer _tiledMapRenderer;
     private readonly EntitiesCollection _entities = new();
 
@@ -87,6 +89,8 @@ public class MainScreen: GameScreen
                 entity = new RedSkinEnemy(this, (int)rect.Center.X);
             if (obj.Name.StartsWith("golem"))
                 entity = new Golem(this, (int)rect.Center.X);
+            if (obj.Name.StartsWith("door"))
+                entity = new Door(rect.Center);
             
             if (entity != null)
                 _entities.Add(entity);

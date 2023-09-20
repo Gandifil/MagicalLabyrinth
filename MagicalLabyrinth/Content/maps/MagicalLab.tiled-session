@@ -13,11 +13,11 @@
             "scaleInEditor": 4
         },
         "StartLocation.tmx": {
-            "scale": 1,
-            "selectedLayer": 1,
+            "scale": 1.5,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": -1.5,
-                "y": 0.5
+                "x": 358.3333333333333,
+                "y": 16.333333333333314
             }
         }
     },

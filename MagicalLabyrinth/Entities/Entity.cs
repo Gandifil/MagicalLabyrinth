@@ -23,12 +23,12 @@ public abstract class Entity: IEntity
         _sprite.Update(dt);
     }
 
-    protected void SetupAnimatedSprite(string contentName)
+    protected void SetupAnimatedSprite(string contentName, string playAnimation = "idle")
     {
         var spriteSheet =  MainGame.Instance.Content
             .Load<SpriteSheet>(contentName, new JsonContentLoader());
         
-        _sprite = new AnimatedSprite(spriteSheet, "idle");
+        _sprite = new AnimatedSprite(spriteSheet, playAnimation);
     }
 
     public const float Y_FLOOR_LEVEL = 192;

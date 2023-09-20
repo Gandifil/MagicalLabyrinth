@@ -1,0 +1,29 @@
+{
+  "textureAtlas": {
+    "texture": "door1.png",
+    "regionWidth": 32,
+    "regionHeight": 48
+  },
+  "cycles": {
+    "closed": {
+      "frames": [3],
+      "isLooping": false,
+      "frameDuration": 0.2
+    },
+    "opened": {
+      "frames": [0],
+      "isLooping": false,
+      "frameDuration": 0.2
+    },
+    "close": {
+      "frames": [0,1,2,3],
+      "isLooping": false,
+      "frameDuration": 0.1
+    },
+    "open": {
+      "frames": [3,2,1,0],
+      "isLooping": false,
+      "frameDuration": 0.1
+    }
+  }
+}

@@ -313,3 +313,11 @@
 /processor:SoundEffectProcessor
 /build:sounds/hit03.wav
 
+#begin buildings/door1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/build:buildings/door1.png
+
+#begin buildings/door1.sf
+/copy:buildings/door1.sf
+
