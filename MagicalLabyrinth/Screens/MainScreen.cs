@@ -27,7 +27,7 @@ public class MainScreen: GameScreen
     public IEnumerable<IEntity> Entities => _entities;
 
     TiledMap _tiledMap;
-    MouseButton
+    //MouseButton
     private TiledMapRenderer _tiledMapRenderer;
     private readonly EntitiesCollection _entities = new();
 
